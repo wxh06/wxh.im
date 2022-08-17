@@ -1,5 +1,5 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
-import { TwitterFollowButton } from "react-twitter-embed";
+import { TwitterFollowButton, TwitterTimelineEmbed } from "react-twitter-embed";
 import GitHubButton from "react-github-btn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
@@ -72,54 +72,70 @@ export default function Index() {
       </header>
 
       <main>
-        <h1>Hey there</h1>
-        <p className="fs-5 col-md-8">
-          I&apos;m <span lang="zh-Hans">汪心禾</span> (
-          <a
-            href="https://en.wikipedia.org/wiki/Pinyin"
-            hrefLang="en"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            pinyin
-          </a>
-          : Wāng Xīnhé), a 16 y.o. student.
-        </p>
-        <ul className="list-unstyled">
-          <li className="bi bi-book">
-            {" "}
-            Grade 11 at{" "}
-            <a
-              href="https://www.ghcis.com/"
-              hrefLang="zh-Hans-CN"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              GHCIS
-            </a>
-          </li>
-          <li className="bi bi-geo-alt">
-            {" "}
-            Shanghai, People&apos;s Republic of China (
-            <span lang="zh-Hans">中华人民共和国 上海市</span>)
-          </li>
-          <li className="bi bi-translate">
-            {" "}
-            Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
-          </li>
-        </ul>
+        <div className="row">
+          <div className="col-md-8">
+            <h1>Hey there</h1>
+            <p className="fs-5">
+              I&apos;m <span lang="zh-Hans">汪心禾</span> (
+              <a
+                href="https://en.wikipedia.org/wiki/Pinyin"
+                hrefLang="en"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                pinyin
+              </a>
+              : Wāng Xīnhé), a 16 y.o. student.
+            </p>
+            <ul className="list-unstyled">
+              <li className="bi bi-book">
+                {" "}
+                Grade 11 at{" "}
+                <a
+                  href="https://www.ghcis.com/"
+                  hrefLang="zh-Hans-CN"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  GHCIS
+                </a>
+              </li>
+              <li className="bi bi-geo-alt">
+                {" "}
+                Shanghai, People&apos;s Republic of China (
+                <span lang="zh-Hans">中华人民共和国 上海市</span>)
+              </li>
+              <li className="bi bi-translate">
+                {" "}
+                Simplified Chinese (<span lang="zh-Hans">简体中文</span>),
+                English
+              </li>
+            </ul>
 
-        <GitHubButton
-          href="https://github.com/wxh06"
-          data-size="large"
-          data-text="Follow @wxh06"
-          data-show-count
-        />
-        <TwitterFollowButton screenName="wxh06" options={{ size: "large" }} />
+            <GitHubButton
+              href="https://github.com/wxh06"
+              data-size="large"
+              data-text="Follow @wxh06"
+              data-show-count
+            />
+            <TwitterFollowButton
+              screenName="wxh06"
+              options={{ size: "large" }}
+            />
+          </div>
+
+          <div className="col">
+            <TwitterTimelineEmbed
+              sourceType="profile"
+              screenName="wxh06"
+              options={{ height: "20em" }}
+            />
+          </div>
+        </div>
 
         <hr className="col-3 col-md-2 mb-5" />
 
-        <div className="row g-5">
+        <div className="row">
           <div className="col-md-6">
             <h2>Social Media &amp; Contact Info.</h2>
             <p>You can reach me via:</p>
