@@ -1,13 +1,47 @@
 import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import { TwitterFollowButton } from "react-twitter-embed";
 import GitHubButton from "react-github-btn";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+import {
+  faBilibili,
+  faQq,
+  faTelegram,
+  faTwitch,
+  faTwitter,
+  faWeibo,
+  faYoutube,
+  faZhihu,
+} from "@fortawesome/free-brands-svg-icons";
 import styles from "~/styles/starter-template.css";
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 
 export const meta: MetaFunction = () => ({
   title: "汪心禾 | wxh.im",
 });
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+
+function Contact({
+  icon,
+  platform,
+  user,
+  link,
+}: {
+  icon: IconProp;
+  platform: string;
+  user: string;
+  link: string;
+}) {
+  return (
+    <li className="mb-1">
+      <FontAwesomeIcon icon={icon} /> {platform}{" "}
+      <a href={link} rel="noopener noreferrer" target="_blank">
+        {user}
+      </a>
+    </li>
+  );
+}
 
 export default function Index() {
   return (
@@ -89,66 +123,61 @@ export default function Index() {
           <div className="col-md-6">
             <h2>Social Media &amp; Contact Info.</h2>
             <p>You can reach me via:</p>
-            <ul className="icon-list ps-0">
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://twitter.com/wxh06"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Twitter @wxh06
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://weibo.com/u/5542763526"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  微博 @汪心禾
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://www.zhihu.com/people/wangxinhe-2006"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  知乎 @汪心禾
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://space.bilibili.com/551132744"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  哔哩哔哩 @wxh06
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://t.me/wangxinhe"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Telegram @wangxinhe
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a
-                  href="https://wpa.qq.com/msgrd?uin=1659133940"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  QQ 1659133940
-                </a>
-              </li>
-              <li className="d-flex align-items-start mb-1">
-                <a href="mailto:wangxinhe06@gmail.com">
-                  Email: wangxinhe06@gmail.com
-                </a>
-              </li>
+            <ul className="ps-3">
+              <Contact
+                icon={faTwitter}
+                platform="Twitter"
+                user="@wxh06"
+                link="https://twitter.com/wxh06"
+              />
+              <Contact
+                icon={faWeibo}
+                platform="微博"
+                user="@汪心禾"
+                link="https://weibo.com/u/5542763526"
+              />
+              <Contact
+                icon={faZhihu}
+                platform="知乎"
+                user="@汪心禾"
+                link="https://www.zhihu.com/people/wangxinhe-2006"
+              />
+              <Contact
+                icon={faYoutube}
+                platform="YouTube"
+                user="汪心禾"
+                link="https://www.youtube.com/channel/UCGTCE1U3QblnN070LFeM_Bw"
+              />
+              <Contact
+                icon={faBilibili}
+                platform="哔哩哔哩"
+                user="@wxh06"
+                link="https://space.bilibili.com/551132744"
+              />
+              <Contact
+                icon={faTwitch}
+                platform="Twitch"
+                user="@wxh06"
+                link="https://www.twitch.tv/wxh06"
+              />
+              <Contact
+                icon={faTelegram}
+                platform="Telegram"
+                user="@wangxinhe"
+                link="https://t.me/wangxinhe"
+              />
+              <Contact
+                icon={faQq}
+                platform="QQ"
+                user="1659133940"
+                link="https://wpa.qq.com/msgrd?uin=1659133940"
+              />
+              <Contact
+                icon={faEnvelope}
+                platform="Email:"
+                user="wangxinhe06@gmail.com"
+                link="mailto:wangxinhe06@gmail.com"
+              />
             </ul>
           </div>
 
