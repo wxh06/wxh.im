@@ -50,30 +50,30 @@ export default function Index() {
             pinyin
           </a>
           : Wāng Xīnhé), a 16 y.o. student.
-          <ul className="list-unstyled">
-            <li className="bi bi-book">
-              {" "}
-              Grade 11 at{" "}
-              <a
-                href="https://www.ghcis.com/"
-                hrefLang="zh-Hans-CN"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                GHCIS
-              </a>
-            </li>
-            <li className="bi bi-geo-alt">
-              {" "}
-              Shanghai, People&apos;s Republic of China (
-              <span lang="zh-Hans">中华人民共和国 上海市</span>)
-            </li>
-            <li className="bi bi-translate">
-              {" "}
-              Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
-            </li>
-          </ul>
         </p>
+        <ul className="list-unstyled">
+          <li className="bi bi-book">
+            {" "}
+            Grade 11 at{" "}
+            <a
+              href="https://www.ghcis.com/"
+              hrefLang="zh-Hans-CN"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              GHCIS
+            </a>
+          </li>
+          <li className="bi bi-geo-alt">
+            {" "}
+            Shanghai, People&apos;s Republic of China (
+            <span lang="zh-Hans">中华人民共和国 上海市</span>)
+          </li>
+          <li className="bi bi-translate">
+            {" "}
+            Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+          </li>
+        </ul>
 
         <GitHubButton
           href="https://github.com/wxh06"
