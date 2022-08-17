@@ -1,4 +1,4 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import {
   Links,
   LiveReload,
@@ -8,6 +8,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
+import bootstarpIcons from "bootstrap-icons/font/bootstrap-icons.css";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -15,7 +16,10 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
-export const links = () => [{ rel: "stylesheet", href: bootstrap }];
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: bootstrap },
+  { rel: "stylesheet", href: bootstarpIcons },
+];
 
 export default function App() {
   return (

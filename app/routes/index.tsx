@@ -1,11 +1,13 @@
-import type { MetaFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
+import { TwitterFollowButton } from "react-twitter-embed";
+import GitHubButton from "react-github-btn";
 import styles from "~/styles/starter-template.css";
 
 export const meta: MetaFunction = () => ({
-  title: "Starter Template",
+  title: "汪心禾 | wxh.im",
 });
 
-export const links = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
 
 export default function Index() {
   return (
@@ -36,79 +38,167 @@ export default function Index() {
       </header>
 
       <main>
-        <h1>Get started with Bootstrap</h1>
+        <h1>Hey there</h1>
         <p className="fs-5 col-md-8">
-          Quickly and easily get started with Bootstrap&apos;s compiled,
-          production-ready files with this barebones example featuring some
-          basic HTML and helpful links. Download all our examples to get
-          started.
+          I&apos;m <span lang="zh-Hans">汪心禾</span> (
+          <a
+            href="https://en.wikipedia.org/wiki/Pinyin"
+            hrefLang="en"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            pinyin
+          </a>
+          : Wāng Xīnhé), a 16 y.o. student.
+          <ul className="list-unstyled">
+            <li className="bi bi-book">
+              {" "}
+              Grade 11 at{" "}
+              <a
+                href="https://www.ghcis.com/"
+                hrefLang="zh-Hans-CN"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                GHCIS
+              </a>
+            </li>
+            <li className="bi bi-geo-alt">
+              {" "}
+              Shanghai, People&apos;s Republic of China (
+              <span lang="zh-Hans">中华人民共和国 上海市</span>)
+            </li>
+            <li className="bi bi-translate">
+              {" "}
+              Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+            </li>
+          </ul>
         </p>
 
-        <div className="mb-5">
-          <a
-            href="https://getbootstrap.com/docs/5.2/examples/"
-            className="btn btn-primary btn-lg px-4"
-          >
-            Download examples
-          </a>
-        </div>
+        <GitHubButton
+          href="https://github.com/wxh06"
+          data-size="large"
+          data-text="Follow @wxh06"
+          data-show-count
+        />
+        <TwitterFollowButton screenName="wxh06" options={{ size: "large" }} />
 
         <hr className="col-3 col-md-2 mb-5" />
 
         <div className="row g-5">
           <div className="col-md-6">
-            <h2>Starter projects</h2>
-            <p>
-              Ready to beyond the starter template? Check out these open source
-              projects that you can quickly duplicate to a new GitHub
-              repository.
-            </p>
+            <h2>Social Media &amp; Contact Info.</h2>
+            <p>You can reach me via:</p>
             <ul className="icon-list ps-0">
               <li className="d-flex align-items-start mb-1">
                 <a
-                  href="https://github.com/twbs/bootstrap-npm-starter"
+                  href="https://twitter.com/wxh06"
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  Bootstrap npm starter
+                  Twitter @wxh06
                 </a>
               </li>
-              <li className="text-muted d-flex align-items-start mb-1">
-                Bootstrap Parcel starter (coming soon!)
+              <li className="d-flex align-items-start mb-1">
+                <a
+                  href="https://weibo.com/u/5542763526"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  微博 @汪心禾
+                </a>
+              </li>
+              <li className="d-flex align-items-start mb-1">
+                <a
+                  href="https://www.zhihu.com/people/wangxinhe-2006"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  知乎 @汪心禾
+                </a>
+              </li>
+              <li className="d-flex align-items-start mb-1">
+                <a
+                  href="https://space.bilibili.com/551132744"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  哔哩哔哩 @wxh06
+                </a>
+              </li>
+              <li className="d-flex align-items-start mb-1">
+                <a
+                  href="https://t.me/wangxinhe"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Telegram @wangxinhe
+                </a>
+              </li>
+              <li className="d-flex align-items-start mb-1">
+                <a
+                  href="https://wpa.qq.com/msgrd?uin=1659133940"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  QQ 1659133940
+                </a>
+              </li>
+              <li className="d-flex align-items-start mb-1">
+                <a href="mailto:wangxinhe06@gmail.com">
+                  Email: wangxinhe06@gmail.com
+                </a>
               </li>
             </ul>
           </div>
 
           <div className="col-md-6">
-            <h2>Guides</h2>
-            <p>
-              Read more detailed instructions and documentation on using or
-              contributing to Bootstrap.
-            </p>
+            <h2>Programming-related</h2>
+            <p>Open Source, Olympiad in Informatics, etc.</p>
             <ul className="icon-list ps-0">
               <li className="d-flex align-items-start mb-1">
-                <a href="https://getbootstrap.com/docs/5.2/getting-started/introduction/">
-                  Bootstrap quick start guide
+                <a
+                  href="https://github.com/wxh06"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  GitHub @wxh06
                 </a>
               </li>
               <li className="d-flex align-items-start mb-1">
-                <a href="https://getbootstrap.com/docs/5.2/getting-started/webpack/">
-                  Bootstrap Webpack guide
+                <a
+                  href="https://gitlab.com/wangxinhe"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  GitLab @wangxinhe
                 </a>
               </li>
               <li className="d-flex align-items-start mb-1">
-                <a href="https://getbootstrap.com/docs/5.2/getting-started/parcel/">
-                  Bootstrap Parcel guide
+                <a
+                  href="https://gitee.com/wangxinhe"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Gitee @wangxinhe
                 </a>
               </li>
               <li className="d-flex align-items-start mb-1">
-                <a href="https://getbootstrap.com/docs/5.2/getting-started/vite/">
-                  Bootstrap Vite guide
+                <a
+                  href="https://www.luogu.com.cn/user/108135"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  洛谷 @wangxinhe
                 </a>
               </li>
               <li className="d-flex align-items-start mb-1">
-                <a href="https://getbootstrap.com/docs/5.2/getting-started/contribute/">
-                  Contributing to Bootstrap
+                <a
+                  href="https://blog.csdn.net/wangxinhe2006"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  CSDN: wangxinhe2006
                 </a>
               </li>
             </ul>
