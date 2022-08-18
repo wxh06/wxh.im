@@ -9,6 +9,8 @@ import {
 } from "@remix-run/react";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import bootstarpIcons from "bootstrap-icons/font/bootstrap-icons.css";
+import Header from "~/components/header";
+import Footer from "~/components/footer";
 
 export const meta: MetaFunction = () => ({
   charset: "utf-8",
@@ -29,7 +31,11 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <div className="col-lg-8 mx-auto p-3">
+          <Header />
+          <Outlet />
+          <Footer />
+        </div>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
