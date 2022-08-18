@@ -1,4 +1,9 @@
+import type { LinksFunction } from "@remix-run/cloudflare";
 import Masonry from "react-masonry-component";
+
+export const links: LinksFunction = () => [
+  { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net/" },
+];
 
 function Card({
   title,

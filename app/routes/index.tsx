@@ -25,7 +25,11 @@ export const meta: MetaFunction = () => ({
   title: "汪心禾 | wxh.im",
 });
 
-export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
+export const links: LinksFunction = () => [
+  { rel: "dns-prefetch", href: "https://api.github.com/" },
+  { rel: "dns-prefetch", href: "https://platform.twitter.com/" },
+  { rel: "stylesheet", href: styles },
+];
 
 function Contact({
   icon,
