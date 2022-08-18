@@ -13,7 +13,8 @@ import {
   faYoutube,
   faZhihu,
 } from "@fortawesome/free-brands-svg-icons";
-import styles from "~/styles/starter-template.css";
+import starterTemplateStyles from "~/styles/starter-template.css";
+import twitterTimeStyles from "~/styles/twitter-timeline.css";
 import {
   faEnvelope,
   faLanguage,
@@ -28,7 +29,8 @@ export const meta: MetaFunction = () => ({
 export const links: LinksFunction = () => [
   { rel: "dns-prefetch", href: "https://api.github.com/" },
   { rel: "dns-prefetch", href: "https://platform.twitter.com/" },
-  { rel: "stylesheet", href: styles },
+  { rel: "stylesheet", href: starterTemplateStyles },
+  { rel: "stylesheet", href: twitterTimeStyles },
 ];
 
 function Contact({
@@ -56,7 +58,7 @@ export default function Index() {
   return (
     <main className="overflow-hidden">
       <div className="row">
-        <div className="col-md-8">
+        <div className="col-md">
           <h1>Hey there</h1>
           <p className="fs-5">
             I&apos;m <span lang="zh-Hans">汪心禾</span> (
@@ -112,12 +114,8 @@ export default function Index() {
           <TwitterFollowButton screenName="wxh06" options={{ size: "large" }} />
         </div>
 
-        <div className="col">
-          <TwitterTimelineEmbed
-            sourceType="profile"
-            screenName="wxh06"
-            options={{ height: "20em" }}
-          />
+        <div className="col-md-4 overflow-scroll" style={{ maxHeight: "20em" }}>
+          <TwitterTimelineEmbed sourceType="profile" screenName="wxh06" />
         </div>
       </div>
 
