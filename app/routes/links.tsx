@@ -1,5 +1,9 @@
-import type { LinksFunction } from "@remix-run/cloudflare";
+import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
 import Masonry from "react-masonry-component";
+
+export const meta: MetaFunction = () => ({
+  title: "External Links | wxh.im",
+});
 
 export const links: LinksFunction = () => [
   { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net/" },
