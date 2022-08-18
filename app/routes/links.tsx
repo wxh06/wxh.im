@@ -1,5 +1,35 @@
+import { json } from "@remix-run/cloudflare";
 import type { LinksFunction, MetaFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
 import Masonry from "react-masonry-component";
+import fetchToBase64 from "~/utils/fetch-to-base64.server";
+
+interface ExternalLink {
+  img?: string;
+  title: string;
+  author: string;
+  description: string;
+  href: string;
+}
+
+export const loader = async () =>
+  json([
+    {
+      title: "博瀚君の鸽子窝",
+      author: "博瀚君",
+      description: "蒟蒻 OIer",
+      href: "https://weibohan.com/",
+    },
+    {
+      img: `data:image/jpeg;base64,${await fetchToBase64(
+        "https://raw.githubusercontent.com/ForkKILLET/ForkKILLET.github.io/master/icelava.jpg"
+      )}`,
+      title: "IceLava",
+      author: "ForkKILLET",
+      description: "Website of IceLava",
+      href: "https://icelava.top/",
+    },
+  ] as ExternalLink[]);
 
 export const meta: MetaFunction = () => ({
   title: "External Links | wxh.im",
@@ -50,17 +80,13 @@ function Card({
 export default function ExternalLinks() {
   return (
     <Masonry className="row">
-      <Card title="博瀚君の鸽子窝" author="博瀚君" href="https://weibohan.com/">
-        蒟蒻 OIer
-      </Card>
-      <Card
-        title="IceLava"
-        author="ForkKILLET"
-        img="https://cdn.jsdelivr.net/gh/ForkKILLET/ForkKILLET.github.io@master/icelava.jpg"
-        href="https://icelava.top/"
-      >
-        Website of IceLava
-      </Card>
+      {useLoaderData<ExternalLink[]>().map(
+        ({ img, title, author, description, href }) => (
+          <Card img={img} title={title} author={author} href={href} key={title}>
+            {description}
+          </Card>
+        )
+      )}
       <div className="col-sm-6 col-lg-4 mb-4">
         <div className="card">
           <svg
