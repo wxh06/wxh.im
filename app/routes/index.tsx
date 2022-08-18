@@ -14,7 +14,12 @@ import {
   faZhihu,
 } from "@fortawesome/free-brands-svg-icons";
 import styles from "~/styles/starter-template.css";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faLanguage,
+  faLocationDot,
+  faSchool,
+} from "@fortawesome/free-solid-svg-icons";
 
 export const meta: MetaFunction = () => ({
   title: "汪心禾 | wxh.im",
@@ -35,7 +40,7 @@ function Contact({
 }) {
   return (
     <li className="mb-1">
-      <FontAwesomeIcon icon={icon} /> {platform}{" "}
+      <FontAwesomeIcon icon={icon} style={{ height: "1em" }} /> {platform}{" "}
       <a href={link} rel="noopener noreferrer" target="_blank">
         {user}
       </a>
@@ -45,7 +50,7 @@ function Contact({
 
 export default function Index() {
   return (
-    <main>
+    <main className="overflow-hidden">
       <div className="row">
         <div className="col-md-8">
           <h1>Hey there</h1>
@@ -62,8 +67,11 @@ export default function Index() {
             : Wāng Xīnhé), a 16 y.o. student.
           </p>
           <ul className="list-unstyled">
-            <li className="bi bi-book">
-              {" "}
+            <li>
+              <FontAwesomeIcon
+                icon={faSchool}
+                style={{ height: "1em", width: "1.25em" }}
+              />{" "}
               Grade 11 at{" "}
               <a
                 href="https://www.ghcis.com/"
@@ -74,13 +82,19 @@ export default function Index() {
                 GHCIS
               </a>
             </li>
-            <li className="bi bi-geo-alt">
-              {" "}
+            <li>
+              <FontAwesomeIcon
+                icon={faLocationDot}
+                style={{ height: "1em", width: "1.25em" }}
+              />{" "}
               Shanghai, People&apos;s Republic of China (
               <span lang="zh-Hans">中华人民共和国 上海市</span>)
             </li>
-            <li className="bi bi-translate">
-              {" "}
+            <li>
+              <FontAwesomeIcon
+                icon={faLanguage}
+                style={{ height: "1em", width: "1.25em" }}
+              />{" "}
               Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
             </li>
           </ul>
@@ -105,7 +119,7 @@ export default function Index() {
 
       <hr className="col-3 col-md-2 mb-5" />
 
-      <div className="row">
+      <div className="row g-5">
         <div className="col-md-6">
           <h2>Social Media &amp; Contact Info.</h2>
           <p>You can reach me via:</p>

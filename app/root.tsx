@@ -8,7 +8,6 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
-import bootstarpIcons from "bootstrap-icons/font/bootstrap-icons.css";
 import Header from "~/components/header";
 import Footer from "~/components/footer";
 
@@ -20,7 +19,6 @@ export const meta: MetaFunction = () => ({
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: bootstrap },
-  { rel: "stylesheet", href: bootstarpIcons },
 ];
 
 export default function App() {
@@ -31,7 +29,7 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <div className="col-lg-8 mx-auto p-3">
+        <div className="col-lg-8 mx-auto px-3">
           <Header />
           <Outlet />
           <Footer />

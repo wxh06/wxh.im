@@ -17,7 +17,6 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.33.1
   '@typescript-eslint/parser': ^5.33.1
   bootstrap: ^5.2.0
-  bootstrap-icons: ^1.9.1
   cross-env: ^7.0.3
   eslint: ^8.22.0
   eslint-config-prettier: ^8.5.0
@@ -44,7 +43,6 @@ dependencies:
   '@remix-run/cloudflare-pages': 1.6.8_ixu2mxacswckoe2tosli5jt6hm
   '@remix-run/react': 1.6.8_sfoxds7t5ydpegc3knd667wn6m
   bootstrap: 5.2.0_@popperjs+core@2.11.6
-  bootstrap-icons: 1.9.1
   cross-env: 7.0.3
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
@@ -2566,10 +2564,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
-
-  /bootstrap-icons/1.9.1:
-    resolution: {integrity: sha512-d4ZkO30MIkAhQ2nNRJqKXJVEQorALGbLWTuRxyCTJF96lRIV6imcgMehWGJUiJMJhglN0o2tqLIeDnMdiQEE9g==}
-    dev: false
 
   /bootstrap/5.2.0_@popperjs+core@2.11.6:
     resolution: {integrity: sha512-qlnS9GL6YZE6Wnef46GxGv1UpGGzAwO0aPL1yOjzDIJpeApeMvqV24iL+pjr2kU4dduoBA9fINKWKgMToobx9A==}
