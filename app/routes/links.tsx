@@ -12,7 +12,7 @@ interface ExternalLink {
   href: string;
 }
 
-export const loader = async () =>
+export const loader = () =>
   json([
     {
       title: "博瀚君の鸽子窝",
@@ -21,9 +21,7 @@ export const loader = async () =>
       href: "https://weibohan.com/",
     },
     {
-      img: `data:image/jpeg;base64,${await fetchToBase64(
-        "https://raw.githubusercontent.com/ForkKILLET/ForkKILLET.github.io/master/icelava.jpg"
-      )}`,
+      img: "https://ghproxy.com/https://raw.githubusercontent.com/ForkKILLET/ForkKILLET.github.io/master/icelava.jpg",
       title: "IceLava",
       author: "ForkKILLET",
       description: "Website of IceLava",
