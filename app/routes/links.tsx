@@ -1,53 +1,57 @@
 import Masonry from "react-masonry-component";
 
+function Card({
+  title,
+  author,
+  img,
+  href,
+  children,
+}: {
+  title: string;
+  author: string;
+  img?: string;
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="col-sm-6 col-lg-4 mb-4">
+      <div className="card">
+        {img && <img src={img} className="card-img-top" alt={title} />}
+        <div className="card-body">
+          <h5 className="card-title">
+            <a
+              href={href}
+              className="stretched-link"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {title}
+            </a>
+          </h5>
+          <p className="card-text">{children}</p>
+          <p className="card-text text-end">
+            <small className="text-muted">by {author}</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ExternalLinks() {
   return (
     <Masonry className="row">
-      <div className="col-sm-6 col-lg-4 mb-4">
-        <div className="card">
-          <div className="card-body">
-            <h5 className="card-title">
-              <a
-                href="https://icelava.top/"
-                className="stretched-link"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                博瀚君の鸽子窝
-              </a>
-            </h5>
-            <p className="card-text">蒟蒻 OIer</p>
-            <p className="card-text text-end">
-              <small className="text-muted">by 博瀚君</small>
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className="col-sm-6 col-lg-4 mb-4">
-        <div className="card">
-          <img
-            src="https://cdn.jsdelivr.net/gh/ForkKILLET/ForkKILLET.github.io@master/icelava.jpg"
-            className="card-img-top"
-            alt="IceLava"
-          />
-          <div className="card-body">
-            <h5 className="card-title">
-              <a
-                href="https://icelava.top/"
-                className="stretched-link"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                IceLava
-              </a>
-            </h5>
-            <p className="card-text">Website of IceLava</p>
-            <p className="card-text text-end">
-              <small className="text-muted">by ForkKILLET</small>
-            </p>
-          </div>
-        </div>
-      </div>
+      <Card title="博瀚君の鸽子窝" author="博瀚君" href="https://weibohan.com/">
+        蒟蒻 OIer
+      </Card>
+      <Card
+        title="IceLava"
+        author="ForkKILLET"
+        img="https://cdn.jsdelivr.net/gh/ForkKILLET/ForkKILLET.github.io@master/icelava.jpg"
+        href="https://icelava.top/"
+      >
+        Website of IceLava
+      </Card>
       <div className="col-sm-6 col-lg-4 mb-4">
         <div className="card">
           <svg
