@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faBilibili,
+  faGithub,
+  faGitlab,
   faQq,
   faTelegram,
   faTwitch,
@@ -21,6 +23,7 @@ import {
   faLocationDot,
   faSchool,
 } from "@fortawesome/free-solid-svg-icons";
+import ExternalLink from "~/components/external-link";
 
 export const meta: MetaFunction = () => ({
   title: "汪心禾 | wxh.im",
@@ -47,9 +50,30 @@ function Contact({
   return (
     <li className="mb-1">
       <FontAwesomeIcon icon={icon} style={{ height: "1em" }} /> {platform}{" "}
-      <a href={link} rel="noopener noreferrer" target="_blank">
-        {user}
-      </a>
+      <ExternalLink href={link}>{user}</ExternalLink>
+    </li>
+  );
+}
+
+function Language({
+  children,
+  proficiency,
+}: {
+  children: React.ReactNode;
+  proficiency: 0 | 1 | 2 | 3;
+}) {
+  return (
+    <li className="d-flex align-items-start mb-1">
+      <span className="d-inline">
+        {children}{" "}
+        <span
+          className={`badge rounded-pill text-bg-${
+            ["secondary", "info", "primary", "success"][proficiency]
+          }`}
+        >
+          {["beginner", "intermediate", "familiar", "proficient"][proficiency]}
+        </span>
+      </span>
     </li>
   );
 }
@@ -62,14 +86,12 @@ export default function Index() {
           <h1>Hey there</h1>
           <p className="fs-5">
             I&apos;m <span lang="zh-Hans">汪心禾</span> (
-            <a
+            <ExternalLink
               href="https://en.wikipedia.org/wiki/Pinyin"
               hrefLang="en"
-              rel="noopener noreferrer"
-              target="_blank"
             >
               pinyin
-            </a>
+            </ExternalLink>
             : Wāng Xīnhé), a 16 y.o. student.
           </p>
           <ul className="list-unstyled">
@@ -79,14 +101,9 @@ export default function Index() {
                 style={{ height: "1em", width: "1.25em" }}
               />{" "}
               Grade 11 at{" "}
-              <a
-                href="https://www.ghcis.com/"
-                hrefLang="zh-Hans-CN"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
+              <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
                 GHCIS
-              </a>
+              </ExternalLink>
             </li>
             <li>
               <FontAwesomeIcon
@@ -126,6 +143,18 @@ export default function Index() {
           <h2>Social Media &amp; Contact Info.</h2>
           <p>You can reach me via:</p>
           <ul className="ps-3">
+            <Contact
+              icon={faGithub}
+              platform="GitHub"
+              user="@wxh06"
+              link="https://github.com/wxh06"
+            />
+            {/* <Contact
+              icon={faGitlab}
+              platform="GitLab"
+              user="@wangxinhe"
+              link="https://gitlab.com/wangxinhe"
+            /> */}
             <Contact
               icon={faTwitter}
               platform="Twitter"
@@ -184,54 +213,31 @@ export default function Index() {
         </div>
 
         <div className="col-md-6">
-          <h2>Programming-related</h2>
-          <p>Open Source, Olympiad in Informatics, etc.</p>
+          <h2>Programming languages</h2>
+          <p>
+            Used in Open Source Projects, Olympiad in Informatics Contests, etc.
+          </p>
           <ul className="icon-list ps-0">
-            <li className="d-flex align-items-start mb-1">
-              <a
-                href="https://github.com/wxh06"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                GitHub @wxh06
-              </a>
-            </li>
-            <li className="d-flex align-items-start mb-1">
-              <a
-                href="https://gitlab.com/wangxinhe"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                GitLab @wangxinhe
-              </a>
-            </li>
-            <li className="d-flex align-items-start mb-1">
-              <a
-                href="https://gitee.com/wangxinhe"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                Gitee @wangxinhe
-              </a>
-            </li>
-            <li className="d-flex align-items-start mb-1">
-              <a
-                href="https://www.luogu.com.cn/user/108135"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                洛谷 @wangxinhe
-              </a>
-            </li>
-            <li className="d-flex align-items-start mb-1">
-              <a
-                href="https://blog.csdn.net/wangxinhe2006"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                CSDN: wangxinhe2006
-              </a>
-            </li>
+            <Language proficiency={2}>
+              C / C++ <del>(C with STL)</del>
+            </Language>
+            <Language proficiency={3}>
+              <ExternalLink href="https://www.python.org/">Python</ExternalLink>
+            </Language>
+            <Language proficiency={2}>
+              JavaScript /{" "}
+              <ExternalLink href="https://www.typescriptlang.org/">
+                TypeScript
+              </ExternalLink>
+            </Language>
+            <Language proficiency={1}>
+              <ExternalLink href="https://go.dev/">Go</ExternalLink>
+            </Language>
+            <Language proficiency={0}>
+              <ExternalLink href="https://www.rust-lang.org/">
+                Rust
+              </ExternalLink>
+            </Language>
           </ul>
         </div>
       </div>
