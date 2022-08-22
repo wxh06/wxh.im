@@ -4,6 +4,7 @@ import GitHubButton from "react-github-btn";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
+  faApple,
   faBilibili,
   faGithub,
   faGitlab,
@@ -11,11 +12,11 @@ import {
   faTelegram,
   faTwitch,
   faTwitter,
+  faUbuntu,
   faWeibo,
   faYoutube,
   faZhihu,
 } from "@fortawesome/free-brands-svg-icons";
-import starterTemplateStyles from "~/styles/starter-template.css";
 import twitterTimeStyles from "~/styles/twitter-timeline.css";
 import {
   faEnvelope,
@@ -32,7 +33,6 @@ export const meta: MetaFunction = () => ({
 export const links: LinksFunction = () => [
   { rel: "dns-prefetch", href: "https://api.github.com/" },
   { rel: "dns-prefetch", href: "https://platform.twitter.com/" },
-  { rel: "stylesheet", href: starterTemplateStyles },
   { rel: "stylesheet", href: twitterTimeStyles },
 ];
 
@@ -51,29 +51,6 @@ function Contact({
     <li className="mb-1">
       <FontAwesomeIcon icon={icon} style={{ height: "1em" }} /> {platform}{" "}
       <ExternalLink href={link}>{user}</ExternalLink>
-    </li>
-  );
-}
-
-function Language({
-  children,
-  proficiency,
-}: {
-  children: React.ReactNode;
-  proficiency: 0 | 1 | 2 | 3;
-}) {
-  return (
-    <li className="d-flex align-items-start mb-1">
-      <span className="d-inline">
-        {children}{" "}
-        <span
-          className={`badge rounded-pill text-bg-${
-            ["secondary", "info", "primary", "success"][proficiency]
-          }`}
-        >
-          {["beginner", "intermediate", "familiar", "proficient"][proficiency]}
-        </span>
-      </span>
     </li>
   );
 }
@@ -119,6 +96,13 @@ export default function Index() {
                 style={{ height: "1em", width: "1.25em" }}
               />{" "}
               Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+            </li>
+            <li>
+              Habitual operating system:{" "}
+              <FontAwesomeIcon icon={faApple} style={{ height: "1em" }} />{" "}
+              macOS,{" "}
+              <FontAwesomeIcon icon={faUbuntu} style={{ height: "1em" }} />{" "}
+              Ubuntu Server
             </li>
           </ul>
 
@@ -209,35 +193,6 @@ export default function Index() {
               user="wangxinhe06@gmail.com"
               link="mailto:wangxinhe06@gmail.com"
             />
-          </ul>
-        </div>
-
-        <div className="col-md-6">
-          <h2>Programming languages</h2>
-          <p>
-            Used in Open Source Projects, Olympiad in Informatics Contests, etc.
-          </p>
-          <ul className="icon-list ps-0">
-            <Language proficiency={2}>
-              C / C++ <del>(C with STL)</del>
-            </Language>
-            <Language proficiency={3}>
-              <ExternalLink href="https://www.python.org/">Python</ExternalLink>
-            </Language>
-            <Language proficiency={2}>
-              JavaScript /{" "}
-              <ExternalLink href="https://www.typescriptlang.org/">
-                TypeScript
-              </ExternalLink>
-            </Language>
-            <Language proficiency={1}>
-              <ExternalLink href="https://go.dev/">Go</ExternalLink>
-            </Language>
-            <Language proficiency={0}>
-              <ExternalLink href="https://www.rust-lang.org/">
-                Rust
-              </ExternalLink>
-            </Language>
           </ul>
         </div>
       </div>

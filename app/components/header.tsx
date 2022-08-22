@@ -12,8 +12,13 @@ export default function Header() {
 
       <ul className="nav nav-pills">
         <li className="nav-item">
-          <NavLink to="/" end prefetch="intent" className="nav-link">
+          <NavLink to="/" prefetch="intent" className="nav-link">
             Home
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink to="/skills" prefetch="intent" className="nav-link">
+            Skills
           </NavLink>
         </li>
         <li className="nav-item">

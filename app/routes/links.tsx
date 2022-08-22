@@ -77,7 +77,7 @@ function Card({
 
 export default function ExternalLinks() {
   return (
-    <Masonry className="row">
+    <Masonry className="row" updateOnEachImageLoad>
       {useLoaderData<ExternalLink[]>().map(
         ({ img, title, author, description, href }) => (
           <Card img={img} title={title} author={author} href={href} key={title}>
