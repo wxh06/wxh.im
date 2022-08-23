@@ -21,11 +21,19 @@ export const loader = () =>
       href: "https://weibohan.com/",
     },
     {
-      img: "https://ghproxy.com/https://raw.githubusercontent.com/ForkKILLET/ForkKILLET.github.io/master/icelava.jpg",
+      img: "https://testingcf.jsdelivr.net/gh/ForkKILLET/ForkKILLET.github.io@master/icelava.jpg",
       title: "IceLava",
       author: "ForkKILLET",
       description: "Website of IceLava",
       href: "https://icelava.top/",
+    },
+    {
+      img: "https://testingcf.jsdelivr.net/npm/bsi@0.0.7/banner/800x450.webp",
+      title: "Baoshuo's Blog",
+      author: "Baoshuo Ren",
+      description:
+        "Learning is a process of discovering your own shortcomings.",
+      href: "https://blog.baoshuo.ren/?utm_source=friends",
     },
   ] as ExternalLink[]);
 
@@ -34,7 +42,7 @@ export const meta: MetaFunction = () => ({
 });
 
 export const links: LinksFunction = () => [
-  { rel: "dns-prefetch", href: "https://cdn.jsdelivr.net/" },
+  { rel: "dns-prefetch", href: "https://testingcf.jsdelivr.net/" },
 ];
 
 function Card({
