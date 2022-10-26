@@ -1,8 +1,5 @@
 node_modules/
 
-/.cache
-/functions/_assets/
-/functions/\[\[path\]\].js
-/public/build
-
 pnpm-lock.yaml
+
+.next/

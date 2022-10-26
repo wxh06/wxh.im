@@ -1,19 +1,35 @@
 {
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node",
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb/hooks",
+    "plugin:react/jsx-runtime",
     "plugin:prettier/recommended"
   ],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"],
       "extends": [
+        "airbnb-typescript",
+        "airbnb/hooks",
         "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:prettier/recommended"
       ],
       "parserOptions": { "project": "tsconfig.json" }
+    },
+    {
+      "files": ["*.config.*", ".*rc.*"],
+      "rules": {
+        "import/no-extraneous-dependencies": [
+          "error",
+          { "devDependencies": true }
+        ]
+      }
     }
-  ]
+  ],
+  "rules": {
+    // "react/no-unknown-property": [2, { "ignore": ["jsx", "global"] }],
+    "@typescript-eslint/consistent-type-imports": "error"
+  }
 }
