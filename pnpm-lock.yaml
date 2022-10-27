@@ -2,7 +2,6 @@ lockfileVersion: 5.4
 
 specifiers:
   '@egjs/react-infinitegrid': ^4.7.1
-  '@fortawesome/fontawesome-common-types': ^6.2.0
   '@fortawesome/fontawesome-svg-core': ^6.2.0
   '@fortawesome/free-brands-svg-icons': ^6.2.0
   '@fortawesome/free-solid-svg-icons': ^6.2.0
@@ -14,6 +13,7 @@ specifiers:
   '@typescript-eslint/parser': ^5.41.0
   '@vercel/analytics': ^0.1.2
   autoprefixer: ^10.4.12
+  bsi: ^0.0.7
   eslint: 8.26.0
   eslint-config-airbnb: ^19.0.4
   eslint-config-airbnb-typescript: ^17.0.0
@@ -44,6 +44,7 @@ dependencies:
   '@fortawesome/free-solid-svg-icons': 6.2.0
   '@fortawesome/react-fontawesome': 0.2.0_6j2wdqxompc6mcokhxkpep2gqu
   '@vercel/analytics': 0.1.2_react@18.2.0
+  bsi: 0.0.7
   next: 13.0.0_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -52,7 +53,6 @@ dependencies:
   tailwindcss: 3.2.1_postcss@8.4.18
 
 devDependencies:
-  '@fortawesome/fontawesome-common-types': 6.2.0
   '@types/node': 18.11.5
   '@types/react': 18.0.23
   '@types/react-dom': 18.0.7
@@ -164,6 +164,7 @@ packages:
     resolution: {integrity: sha512-rBevIsj2nclStJ7AxTdfsa3ovHb1H+qApwrxcTVo+NNdeJiB9V75hsKfrkG5AwNcRUNxrPPiScGYCNmLMoh8pg==}
     engines: {node: '>=6'}
     requiresBuild: true
+    dev: false
 
   /@fortawesome/fontawesome-svg-core/6.2.0:
     resolution: {integrity: sha512-Cf2mAAeMWFMzpLC7Y9H1I4o3wEU+XovVJhTiNG8ZNgSQj53yl7OCJaS80K4YjrABWZzbAHVaoHE1dVJ27AAYXw==}
@@ -754,6 +755,10 @@ packages:
       node-releases: 2.0.6
       update-browserslist-db: 1.0.10_browserslist@4.21.4
     dev: true
+
+  /bsi/0.0.7:
+    resolution: {integrity: sha512-4Kud7dYPH0F/6juCwdckYmUDZGfaFw/N47TdrtMoEzo+5vXoYx3IarJ47bJkmc+ypCSEo49McqS3dQdcXK7Jyg==}
+    dev: false
 
   /call-bind/1.0.2:
     resolution: {integrity: sha512-7O+FbCihrB5WGbFYesctwmTKae6rOiIzmz1icreWJ+0aA7LJfuqhEso2T9ncpcFtzMQtzXf2QGGueWJGTYsqrA==}

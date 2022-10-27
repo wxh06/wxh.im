@@ -1,8 +1,6 @@
-import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { IconDefinition } from "@fortawesome/fontawesome-common-types";
 import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import {
   faGithub,
@@ -11,47 +9,35 @@ import {
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 
-export const getStaticProps: GetStaticProps<{
-  contact: {
-    url: string;
-    title: string;
-    icon: IconDefinition;
-  }[];
-}> = () => ({
-  props: {
-    contact: [
-      {
-        url: "https://github.com/wxh06",
-        title: "GitHub @wxh06",
-        icon: faGithub,
-      },
-      {
-        url: "https://twitter.com/wxh06",
-        title: "Twitter @wxh06",
-        icon: faTwitter,
-      },
-      {
-        url: "https://t.me/wangxinhe",
-        title: "Telegram @wangxinhe",
-        icon: faTelegram,
-      },
-      {
-        url: "https://wpa.qq.com/msgrd?uin=1659133940",
-        title: "QQ: 1659133940",
-        icon: faQq,
-      },
-      {
-        url: "mailto:wangxinhe06@gmail.com",
-        title: "Email: wangxinhe06@gmail.com",
-        icon: faEnvelope,
-      },
-    ],
+const contact = [
+  {
+    url: "https://github.com/wxh06",
+    title: "GitHub @wxh06",
+    icon: faGithub,
   },
-});
+  {
+    url: "https://twitter.com/wxh06",
+    title: "Twitter @wxh06",
+    icon: faTwitter,
+  },
+  {
+    url: "https://t.me/wangxinhe",
+    title: "Telegram @wangxinhe",
+    icon: faTelegram,
+  },
+  {
+    url: "https://wpa.qq.com/msgrd?uin=1659133940",
+    title: "QQ: 1659133940",
+    icon: faQq,
+  },
+  {
+    url: "mailto:wangxinhe06@gmail.com",
+    title: "Email: wangxinhe06@gmail.com",
+    icon: faEnvelope,
+  },
+];
 
-export default function Home({
-  contact,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+export default function Home() {
   return (
     <div className="flex h-screen flex-col justify-center">
       <Head>

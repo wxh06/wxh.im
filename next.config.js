@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["testingcf.jsdelivr.net", "thirdqq.qlogo.cn"],
+    domains: ["raw.githubusercontent.com", "thirdqq.qlogo.cn"],
     ...(process.env.CF_PAGES
       ? { loader: "custom", loaderFile: "./image-loader.ts" }
       : {}),
