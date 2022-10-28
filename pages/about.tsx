@@ -6,10 +6,10 @@ import {
   faUbuntu,
 } from "@fortawesome/free-brands-svg-icons";
 import {
+  faArrowUpRightFromSquare,
   faLanguage,
   faLocationDot,
   faSchool,
-  faUpRightFromSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import GitHubButton from "react-github-btn";
 import { TwitterFollowButton, TwitterTimelineEmbed } from "react-twitter-embed";
@@ -28,7 +28,7 @@ export default function About() {
           <p className="mt-4 text-xl">
             I&rsquo;m <span lang="zh-Hans">汪心禾</span> (
             <a
-              className="text-blue-500 hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+              className="text-slate-500 underline hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200"
               href="https://en.wikipedia.org/wiki/Pinyin"
               hrefLang="en"
               rel="noreferrer"
@@ -42,15 +42,15 @@ export default function About() {
             <li>
               <FontAwesomeIcon icon={faSchool} className="w-6" /> Grade 11 at{" "}
               <a
-                className="text-blue-500 hover:text-blue-700 hover:underline dark:text-blue-400 dark:hover:text-blue-300"
+                className="text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200"
                 href="https://www.ghcis.com/"
                 hrefLang="zh-Hans-CN"
                 rel="noreferrer"
                 target="_blank"
               >
-                GHCIS{" "}
+                <span className="underline">GHCIS</span>{" "}
                 <FontAwesomeIcon
-                  icon={faUpRightFromSquare}
+                  icon={faArrowUpRightFromSquare}
                   className="text-xs"
                 />
               </a>
