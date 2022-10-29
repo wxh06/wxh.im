@@ -5,3 +5,4 @@ node_modules/
 !.*rc.cjs
 
 .next/
+out/
