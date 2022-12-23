@@ -80,6 +80,35 @@ export default function Home() {
           </Link>
         ))}
       </nav>
+
+      {new Date().getUTCMonth() === 11 ? ( // December
+        <div className="fixed right-0 bottom-0 -z-50 overflow-hidden">
+          <pre className="relative -right-4 -bottom-8 -rotate-12 text-xs">
+            <span className="text-yellow-500 dark:text-yellow-200">{`                        *`}</span>
+            <span className="text-green-500 dark:text-green-400">{`
+                       * *
+                      *   *
+                    *   *   *
+                  *           *
+                *  ^  _ ^ _  ^  *
+                 /        *    \\
+               /    *            \\
+             /             *       \\
+           /      *                  \\
+         /  ^  _  ^  _  ^  _  ^  _  ^  \\
+          /             *             \\
+        /      *                        \\
+      /                         *         \\
+    /                  *                    \\
+  /        *                          *       \\
+/   ^   _   ^  _  ^  _  ^  _  ^  _  ^   _   ^   \\
+                /               \\
+                /               \\
+                /_______________\\
+                是送给你的圣诞树哦！`}</span>
+          </pre>
+        </div>
+      ) : null}
     </div>
   );
 }
