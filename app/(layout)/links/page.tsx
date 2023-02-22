@@ -2,13 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 // https://sb.cdn.baoshuo.ren/bsi@0.0.7/banner/1600x900.webp
 import baoshuoBanner from "bsi/banner/1600x900.webp";
-import { MasonryInfiniteGrid } from "./react-infinitegrid";
+import { Masonry } from "./mui-lab";
 
 export const metadata = {
   title: "Links | wxh.im",
-  robots: {
-    index: false,
-  },
 };
 
 const links = [
@@ -47,12 +44,9 @@ const links = [
 
 export default function Page() {
   return (
-    <MasonryInfiniteGrid>
+    <Masonry columns={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }}>
       {links.map(({ href, img: { src, width, height, alt }, title, desc }) => (
-        <div
-          className="w-full px-2 pt-4 transition-all duration-100 md:w-1/2 lg:w-1/3"
-          key={title}
-        >
+        <div className="px-2 pt-4 transition-all duration-100" key={title}>
           <Link href={href} target="_blank" rel="noreferrer">
             <div className="overflow-hidden rounded-xl bg-slate-200 transition-colors duration-100 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
               <Image
@@ -71,6 +65,6 @@ export default function Page() {
           </Link>
         </div>
       ))}
-    </MasonryInfiniteGrid>
+    </Masonry>
   );
 }
