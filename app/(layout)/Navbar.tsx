@@ -1,8 +1,10 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+"use client";
 
-export default function Header() {
-  const router = useRouter();
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+export default function Navbar() {
+  const pathname = usePathname();
   return (
     <nav className="my-4 flex justify-end space-x-3 text-lg">
       <Link className="my-auto mr-auto text-2xl" href="/">
@@ -15,7 +17,7 @@ export default function Header() {
       ].map(({ href, text }) => (
         <Link
           className={`rounded-lg px-4 py-2 transition-colors duration-100 ${
-            router.pathname === href
+            pathname === href
               ? "bg-gray-300 dark:bg-gray-600"
               : "hover:bg-gray-200 dark:hover:bg-gray-700"
           }`}
