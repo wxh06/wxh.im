@@ -1,8 +1,6 @@
 node_modules/
+dist/
+.vercel/
 
 !.*rc.js
-!.*rc.mjs
-!.*rc.cjs
-
-.next/
-out/
+!.*rc.[mc]js

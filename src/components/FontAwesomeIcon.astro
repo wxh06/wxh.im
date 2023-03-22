@@ -1,0 +1,27 @@
+---
+import type { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+
+export interface Props {
+  class?: string;
+  icon: IconDefinition;
+}
+
+const {
+  props: { class: className, icon, ...props },
+} = Astro;
+const [width, height, , , path] = icon.icon;
+---
+
+<svg
+  class:list={["svg-inline--fa", className]}
+  viewBox={`0 0 ${width} ${height}`}
+  {...props}
+>
+  {
+    path instanceof Array ? (
+      path.map((p) => <path fill="currentColor" d={p} />)
+    ) : (
+      <path fill="currentColor" d={path} />
+    )
+  }
+</svg>

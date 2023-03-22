@@ -1,4 +1,14 @@
-/* eslint-disable global-require */
 module.exports = {
-  plugins: [require("prettier-plugin-tailwindcss")],
+  plugins: [
+    require.resolve("prettier-plugin-astro"),
+    require.resolve("prettier-plugin-tailwindcss"),
+  ],
+  overrides: [
+    {
+      files: "*.astro",
+      options: {
+        parser: "astro",
+      },
+    },
+  ],
 };

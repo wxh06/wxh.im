@@ -1,0 +1,85 @@
+---
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import {
+  faGithub,
+  faQq,
+  faTelegram,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import FontAwesomeIcon from "../components/FontAwesomeIcon.astro";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const contact = [
+  {
+    url: "https://github.com/wxh06",
+    title: "GitHub @wxh06",
+    icon: faGithub,
+  },
+  {
+    url: "https://twitter.com/wxh06",
+    title: "Twitter @wxh06",
+    icon: faTwitter,
+  },
+  {
+    url: "https://t.me/wangxinhe",
+    title: "Telegram @wangxinhe",
+    icon: faTelegram,
+  },
+  {
+    url: "https://wpa.qq.com/msgrd?uin=1659133940",
+    title: "QQ: 1659133940",
+    icon: faQq,
+  },
+  {
+    url: "mailto:wangxinhe06@gmail.com",
+    title: "Email: wangxinhe06@gmail.com",
+    icon: faEnvelope,
+  },
+];
+---
+
+<BaseLayout title="汪心禾 | wxh.im">
+  <div class="flex h-screen flex-col justify-center">
+    <main class="text-center">
+      <h1 class="text-4xl">汪心禾</h1>
+      <p class="text-3xl">Wang, Xinhe</p>
+      <div
+        class="mt-4 flex justify-center divide-x divide-dashed divide-gray-300 text-3xl dark:divide-gray-600"
+      >
+        {
+          contact.map(({ url, title, icon }) => (
+            <div class="flex px-1">
+              <a
+                class="px-2 transition duration-100 hover:scale-110"
+                title={title}
+                href={url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FontAwesomeIcon icon={icon} />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </main>
+
+    <nav class="mt-6 flex justify-center space-x-4 text-lg">
+      {
+        [
+          { href: "/about", text: "About" },
+          { href: "/links", text: "Friends" },
+        ].map(({ href, text }) => (
+          <a
+            class="rounded-full bg-gray-200 px-4 py-1 transition-colors duration-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+            href={href}
+            rel="prefetch"
+          >
+            {text}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</BaseLayout>
