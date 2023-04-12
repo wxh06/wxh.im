@@ -14,10 +14,65 @@ import {
 import FontAwesomeIcon from "../components/FontAwesomeIcon.astro";
 
 import Layout from "../layouts/Layout.astro";
+
+const skills = [
+  "astro",
+  "bash",
+  "bootstrap",
+  "c",
+  "cpp",
+  "cloudflare",
+  "django",
+  "docker",
+  "express",
+  "flask",
+  "git",
+  "github",
+  "githubactions",
+  "gitlab",
+  "go",
+  "html",
+  "idea",
+  "instagram",
+  "js",
+  "jest",
+  "jquery",
+  "linux",
+  "md",
+  "mastodon",
+  "materialui",
+  "mongodb",
+  "nestjs",
+  "nextjs",
+  "nodejs",
+  "postman",
+  "pr",
+  "prisma",
+  "py",
+  "react",
+  "redis",
+  "regex",
+  "remix",
+  "stackoverflow",
+  "tailwind",
+  "tensorflow",
+  "twitter",
+  "ts",
+  "vercel",
+  "vim",
+  "vite",
+  "vscode",
+  "vue",
+  "webpack",
+];
+
+type Theme = "dark" | "light";
+const skilliconsSrc = (theme: Theme = "dark") =>
+  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=6`;
 ---
 
 <Layout title="About | wxh.im">
-  <div class="flex flex-wrap justify-between space-y-4 text-lg">
+  <div class="flex flex-wrap justify-between text-lg">
     <main class="grow">
       <p class="mt-5 text-3xl">Hey there</p>
       <p class="mt-4 text-xl">
@@ -81,10 +136,11 @@ import Layout from "../layouts/Layout.astro";
           data-show-count="true"></a>
       </div>
     </main>
-    <div class="mx-auto max-h-96 max-w-sm basis-full overflow-scroll">
-      <a
-        class="twitter-timeline"
-        href="https://twitter.com/wxh06?ref_src=twsrc%5Etfw"></a>
+    <div class="mx-auto my-5">
+      <picture>
+        <source srcset={skilliconsSrc()} media="(prefers-color-scheme: dark)" />
+        <img alt="Skills" src={skilliconsSrc("light")} />
+      </picture>
     </div>
   </div>
 </Layout>
