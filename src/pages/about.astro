@@ -1,5 +1,6 @@
 ---
 /* eslint-disable astro/jsx-a11y/anchor-has-content */
+import { getImage } from "@astrojs/image";
 import {
   faApple,
   faChrome,
@@ -64,11 +65,23 @@ const skills = [
   "vscode",
   "vue",
   "webpack",
-];
+].join(",");
 
 type Theme = "dark" | "light";
-const skilliconsSrc = (theme: Theme = "dark") =>
-  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=6`;
+const getSkilliconsSrc = async (theme: Theme = "dark") =>
+  (
+    await getImage({
+      src: `https://skillicons.dev/icons?i=${skills}&theme=${theme}&perline=6`,
+      alt: "Skills",
+      width: 329.25,
+      height: 441.75,
+      format: "svg",
+    })
+  ).src;
+const skilliconsSrcs = {
+  dark: await getSkilliconsSrc(),
+  light: await getSkilliconsSrc("light"),
+};
 ---
 
 <Layout title="About | wxh.im">
@@ -138,8 +151,11 @@ const skilliconsSrc = (theme: Theme = "dark") =>
     </main>
     <div class="mx-auto my-5">
       <picture>
-        <source srcset={skilliconsSrc()} media="(prefers-color-scheme: dark)" />
-        <img alt="Skills" src={skilliconsSrc("light")} />
+        <source
+          srcset={skilliconsSrcs.dark}
+          media="(prefers-color-scheme: dark)"
+        />
+        <img alt="Skills" src={skilliconsSrcs.light} />
       </picture>
     </div>
   </div>
