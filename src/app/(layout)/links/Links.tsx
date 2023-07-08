@@ -1,9 +1,8 @@
----
-import type { ImageMetadata } from "astro";
-import { Image } from "@astrojs/image/components";
-import baoshuoBanner from "bsi/banner/1600x900.webp";
+"use client";
 
-import Layout from "../layouts/Layout.astro";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
+import baoshuoBanner from "bsi/banner/1600x900.webp";
 
 const links = [
   {
@@ -53,34 +52,44 @@ const links = [
   {
     href: "https://blog.baoshuo.ren/?utm_source=friends",
     img: {
-      src: baoshuoBanner as never as ImageMetadata,
+      src: baoshuoBanner,
       alt: "Baoshuo",
     },
     title: "Baoshuo's Blog",
     desc: "Learning is a process of discovering your own shortcomings.",
   },
 ];
----
 
-<Layout title="Links | wxh.im">
-  <div class="flex flex-wrap pt-4" data-masonry="{}">
-    {
-      links.map(({ href, img, title, desc }) => (
-        <div class="px-2 pb-4 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4">
+export default function Links() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    import("masonry-layout")
+      .then(({ default: Masonry }) => {
+        if (ref.current) new Masonry(ref.current); // eslint-disable-line no-new
+      })
+      .catch(console.error); // eslint-disable-line no-console
+  }, []);
+
+  return (
+    <div className="flex flex-wrap pt-4" ref={ref}>
+      {links.map(({ href, img, title, desc }) => (
+        <div
+          className="px-2 pb-4 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4"
+          key={href}
+        >
           <a href={href} target="_blank" rel="noopener noreferrer">
-            <div class="overflow-hidden rounded-xl bg-slate-200 transition-colors duration-100 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
-              <Image class="w-full" {...img} quality={25} />
-              <div class="mx-6 my-4">
-                <h2 class="text-xl">{title}</h2>
-                <p class="mt-3 text-lg">{desc}</p>
+            <div className="overflow-hidden rounded-xl bg-slate-200 transition-colors duration-100 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
+              {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+              <Image className="w-full" {...img} />
+              <div className="mx-6 my-4">
+                <h2 className="text-xl">{title}</h2>
+                <p className="mt-3 text-lg">{desc}</p>
               </div>
             </div>
           </a>
         </div>
-      ))
-    }
-  </div>
-</Layout>
-<script>
-  import "masonry-layout";
-</script>
+      ))}
+    </div>
+  );
+}
