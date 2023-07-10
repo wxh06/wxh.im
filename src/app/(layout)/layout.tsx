@@ -10,6 +10,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
         </Link>
         {[
           { href: "/about", text: "About" },
+          { href: "/projects", text: "Projects" },
           { href: "/links", text: "Links" },
         ].map(({ href, text }) => (
           <NavLink href={href} key={href}>

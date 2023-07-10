@@ -38,6 +38,9 @@ dependencies:
   react-github-btn:
     specifier: ^1.4.0
     version: 1.4.0(react@18.2.0)
+  simple-icons:
+    specifier: ^9.5.0
+    version: 9.5.0
 
 devDependencies:
   '@types/masonry-layout':
@@ -2899,6 +2902,11 @@ packages:
   /signal-exit@3.0.7:
     resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
     dev: true
+
+  /simple-icons@9.5.0:
+    resolution: {integrity: sha512-FEtVYBJgsQb+Oz2f6DBbPipOl/9QVAEPvxZj1bllsoRsYL2LfufvhPDSLUdmpClUUDW5UjphBoEwBQvqJ1p3lg==}
+    engines: {node: '>=0.12.18'}
+    dev: false
 
   /slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}

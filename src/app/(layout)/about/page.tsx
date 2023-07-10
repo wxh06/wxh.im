@@ -1,7 +1,7 @@
+import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
-  faArrowUpRightFromSquare,
   faLocationDot,
   faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,7 @@ import {
   faUbuntu,
   faChrome,
 } from "@fortawesome/free-brands-svg-icons";
+import ExternalLink from "@/components/ExternalLink";
 import GitHubButton from "./GitHubButton";
 
 export const metadata = { title: "About | wxh.im" };
@@ -21,36 +22,23 @@ export default function Page() {
         <p className="mt-5 text-3xl">Hey there</p>
         <p className="mt-4 text-xl">
           I&rsquo;m <span lang="zh-Hans">汪心禾</span> (
-          <a
-            className="text-slate-500 underline hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200"
+          <ExternalLink
             href="https://en.wikipedia.org/wiki/Pinyin"
             hrefLang="en"
-            target="_blank"
-            rel="noreferrer"
+            icon={false}
           >
             pinyin
-          </a>
+          </ExternalLink>
           : <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17 y.o. student &
           developer.
         </p>
         <ul className="mt-2">
           <li>
             <FontAwesomeIcon icon={faSchool} className="w-6" title="school" />{" "}
-            Grade 12 at
-            <a
-              className="text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-slate-200"
-              href="https://www.ghcis.com/"
-              hrefLang="zh-Hans-CN"
-              target="_blank"
-              rel="noreferrer"
-            >
-              {" "}
-              <span className="underline">GHCIS</span>{" "}
-              <FontAwesomeIcon
-                icon={faArrowUpRightFromSquare}
-                className="text-xs"
-              />
-            </a>
+            Grade 12 at{" "}
+            <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
+              GHCIS
+            </ExternalLink>
           </li>
           <li>
             <FontAwesomeIcon

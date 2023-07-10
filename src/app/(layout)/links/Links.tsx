@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import Image, { type StaticImageData } from "next/image";
 import baoshuoFavicon from "bsi/favicon/favicon.svg";
+import useMasonryLayout from "@/hooks/masonry-layout";
 
 const links = [
   {
@@ -62,14 +63,7 @@ const links = [
 
 export default function Links() {
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    import("masonry-layout")
-      .then(({ default: Masonry }) => {
-        if (ref.current) new Masonry(ref.current); // eslint-disable-line no-new
-      })
-      .catch(console.error); // eslint-disable-line no-console
-  }, []);
+  useMasonryLayout(ref);
 
   return (
     <div className="flex flex-wrap py-2" ref={ref}>
