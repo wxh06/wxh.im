@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
-import baoshuoBanner from "bsi/banner/1600x900.webp";
+import Image, { type StaticImageData } from "next/image";
+import baoshuoFavicon from "bsi/favicon/favicon.svg";
 
 const links = [
   {
@@ -50,13 +50,13 @@ const links = [
     desc: "OIer",
   },
   {
-    href: "https://blog.baoshuo.ren/?utm_source=friends",
+    href: "https://baoshuo.ren/",
     img: {
-      src: baoshuoBanner,
+      src: baoshuoFavicon as StaticImageData,
       alt: "Baoshuo",
     },
-    title: "Baoshuo's Blog",
-    desc: "Learning is a process of discovering your own shortcomings.",
+    title: "Baoshuo",
+    desc: "Even with a heavy past, accept it and continue moving forward.",
   },
 ];
 
@@ -72,16 +72,16 @@ export default function Links() {
   }, []);
 
   return (
-    <div className="flex flex-wrap pt-4" ref={ref}>
+    <div className="flex flex-wrap py-2" ref={ref}>
       {links.map(({ href, img, title, desc }) => (
         <div
-          className="px-2 pb-4 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4"
+          className="p-2 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4"
           key={href}
         >
-          <a href={href} target="_blank" rel="noopener noreferrer">
-            <div className="overflow-hidden rounded-xl bg-slate-200 transition-colors duration-100 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
+          <a href={href} target="_blank" rel="noreferrer">
+            <div className="overflow-hidden rounded-xl border bg-slate-200 transition-colors duration-100 hover:bg-slate-300 dark:border-gray-700 dark:bg-slate-700 dark:hover:bg-slate-600">
               {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-              <Image className="w-full" {...img} />
+              <Image className="w-full bg-white" {...img} />
               <div className="mx-6 my-4">
                 <h2 className="text-xl">{title}</h2>
                 <p className="mt-3 text-lg">{desc}</p>
