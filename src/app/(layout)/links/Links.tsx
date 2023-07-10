@@ -26,7 +26,7 @@ const links = [
       alt: "IceLava",
     },
     title: "IceLava",
-    desc: "ForkKILLET",
+    desc: "ForkΨKillet",
   },
   {
     href: "https://ucw.moe/",
@@ -69,7 +69,7 @@ export default function Links() {
     <div className="flex flex-wrap py-2" ref={ref}>
       {links.map(({ href, img, title, desc }) => (
         <div
-          className="p-2 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4"
+          className="w-full p-2 transition-all duration-75 md:w-1/2 lg:w-1/3 xl:w-1/4"
           key={href}
         >
           <a href={href} target="_blank" rel="noreferrer">

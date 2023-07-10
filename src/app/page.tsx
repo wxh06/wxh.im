@@ -7,6 +7,7 @@ import {
   siTwitter,
 } from "simple-icons";
 import SimpleIcon from "@/components/SimpleIcon";
+import links from "./navigation.json";
 
 export const metadata = { title: "汪心禾 | wxh.im" };
 
@@ -62,10 +63,7 @@ export default function Home() {
       </main>
 
       <nav className="mt-6 flex justify-center space-x-4 text-lg">
-        {[
-          { href: "/about", text: "About" },
-          { href: "/links", text: "Friends" },
-        ].map(({ href, text }) => (
+        {links.map(({ href, text }) => (
           <Link
             className="rounded-full bg-gray-200 px-4 py-1 transition-colors duration-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
             href={href}

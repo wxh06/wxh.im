@@ -1,4 +1,5 @@
 import Link from "next/link";
+import links from "@/app/navigation.json";
 import NavLink from "./NavLink";
 
 export default function Layout({ children }: React.PropsWithChildren) {
@@ -11,11 +12,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
           </Link>
         </div>
         <div className="my-2 space-x-3 text-lg">
-          {[
-            { href: "/about", text: "About" },
-            { href: "/projects", text: "Projects" },
-            { href: "/links", text: "Links" },
-          ].map(({ href, text }) => (
+          {links.map(({ href, text }) => (
             <NavLink href={href} key={href}>
               {text}
             </NavLink>

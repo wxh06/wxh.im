@@ -1,15 +1,19 @@
-import "@fortawesome/fontawesome-svg-core/styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
   faLocationDot,
   faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
+import SimpleIcon from "@/components/SimpleIcon";
 import {
-  faApple,
-  faUbuntu,
-  faChrome,
-} from "@fortawesome/free-brands-svg-icons";
+  siApple,
+  siClion,
+  siDatagrip,
+  siGooglechrome,
+  siUbuntu,
+  siVim,
+  siVisualstudiocode,
+} from "simple-icons";
 import ExternalLink from "@/components/ExternalLink";
 import GitHubButton from "./GitHubButton";
 
@@ -34,7 +38,11 @@ export default function Page() {
         </p>
         <ul className="mt-2">
           <li>
-            <FontAwesomeIcon icon={faSchool} className="w-6" title="school" />{" "}
+            <FontAwesomeIcon
+              icon={faSchool}
+              className="mr-2 h-6 w-6 align-text-bottom"
+              title="school"
+            />
             Grade 12 at{" "}
             <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
               GHCIS
@@ -43,18 +51,18 @@ export default function Page() {
           <li>
             <FontAwesomeIcon
               icon={faLocationDot}
-              className="w-6"
+              className="mr-2 h-6 w-6 align-text-bottom"
               title="location"
-            />{" "}
+            />
             Shanghai, People&apos;s Republic of China (
             <span lang="zh-Hans">中华人民共和国 上海市</span>)
           </li>
           <li>
             <FontAwesomeIcon
               icon={faLanguage}
-              className="w-6"
+              className="mr-2 h-6 w-6 align-text-bottom"
               title="languages"
-            />{" "}
+            />
             Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
           </li>
         </ul>
@@ -62,13 +70,35 @@ export default function Page() {
           <span>Habitual</span>
           <ul>
             <li>
-              OS: <FontAwesomeIcon icon={faApple} /> macOS,{" "}
-              <FontAwesomeIcon icon={faUbuntu} /> Ubuntu Server
+              OS:{" "}
+              <SimpleIcon
+                icon={siApple}
+                title="Apple macOS"
+                className="h-6 align-text-bottom"
+              />{" "}
+              <SimpleIcon
+                icon={siUbuntu}
+                title="Ubuntu Server"
+                className="h-6 align-text-bottom"
+              />
             </li>
             <li>
-              browser: <FontAwesomeIcon icon={faChrome} /> Google Chrome
+              browser:{" "}
+              <SimpleIcon
+                icon={siGooglechrome}
+                className="h-6 align-text-bottom"
+              />
             </li>
-            <li>IDE / editor: Visual Studio Code, JetBrains WebStorm, Vim</li>
+            <li>
+              IDE / editor:{" "}
+              <SimpleIcon
+                icon={siVisualstudiocode}
+                className="h-6 align-text-bottom"
+              />{" "}
+              <SimpleIcon icon={siVim} className="h-6 align-text-bottom" />{" "}
+              <SimpleIcon icon={siClion} className="h-6 align-text-bottom" />{" "}
+              <SimpleIcon icon={siDatagrip} className="h-6 align-text-bottom" />{" "}
+            </li>
           </ul>
         </div>
         <div className="mt-4">

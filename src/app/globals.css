@@ -6,4 +6,8 @@
   body {
     @apply dark:bg-zinc-900 dark:text-zinc-100;
   }
+
+  svg {
+    @apply inline-block;
+  }
 }

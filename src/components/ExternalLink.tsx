@@ -19,8 +19,9 @@ export default function ExternalLink({
       {children}
       {icon && (
         <FontAwesomeIcon
+          height=".625em"
           icon={faArrowUpRightFromSquare}
-          className="ml-1 align-middle text-xs"
+          className="ml-1 align-baseline"
         />
       )}
     </a>
