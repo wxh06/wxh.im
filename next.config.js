@@ -31,11 +31,11 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: "/skills/light",
+        source: "/skillicons/light",
         destination: skillIcons("light"),
       },
       {
-        source: "/skills/dark",
+        source: "/skillicons/dark",
         destination: skillIcons("dark"),
       },
     ];

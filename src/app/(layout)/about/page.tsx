@@ -114,8 +114,11 @@ export default function Page() {
       </main>
       <div className="mx-auto my-5">
         <picture>
-          <source srcSet="/skills/dark" media="(prefers-color-scheme: dark)" />
-          <img alt="Skills" src="/skills/light" />
+          <source
+            srcSet="/skillicons/dark"
+            media="(prefers-color-scheme: dark)"
+          />
+          <img alt="Skills" src="/skillicons/light" />
         </picture>
       </div>
     </div>
