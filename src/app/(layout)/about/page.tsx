@@ -9,8 +9,10 @@ import type { SimpleIcon as SimpleIconType } from "simple-icons";
 import SimpleIcon from "@/components/SimpleIcon";
 import {
   siApple,
+  siArchlinux,
   siClion,
   siDatagrip,
+  siFirefoxbrowser,
   siGooglechrome,
   siUbuntu,
   siVim,
@@ -24,9 +26,10 @@ export const metadata = { title: "About | wxh.im" };
 const tools: Record<string, { icon: SimpleIconType; title?: string }[]> = {
   OS: [
     { icon: siApple, title: "Apple macOS" },
+    { icon: siArchlinux },
     { icon: siUbuntu, title: "Ubuntu Server" },
   ],
-  browser: [{ icon: siGooglechrome }],
+  browser: [{ icon: siGooglechrome }, { icon: siFirefoxbrowser }],
   "IDE / editor": [
     { icon: siVisualstudiocode },
     { icon: siVim },
