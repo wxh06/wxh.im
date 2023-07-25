@@ -118,8 +118,8 @@ export default function Projects() {
               <SimpleIcon
                 className="inline-block text-gray-500 dark:text-gray-400"
                 icon={icon}
-                width={24}
-                height={24}
+                width={20}
+                height={20}
                 fill="currentColor"
                 key={icon.slug}
               />
