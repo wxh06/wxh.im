@@ -1,9 +1,11 @@
+import { Fragment } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
   faLocationDot,
   faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
+import type { SimpleIcon as SimpleIconType } from "simple-icons";
 import SimpleIcon from "@/components/SimpleIcon";
 import {
   siApple,
@@ -18,6 +20,20 @@ import ExternalLink from "@/components/ExternalLink";
 import GitHubButton from "./GitHubButton";
 
 export const metadata = { title: "About | wxh.im" };
+
+const tools: Record<string, { icon: SimpleIconType; title?: string }[]> = {
+  OS: [
+    { icon: siApple, title: "Apple macOS" },
+    { icon: siUbuntu, title: "Ubuntu Server" },
+  ],
+  browser: [{ icon: siGooglechrome }],
+  "IDE / editor": [
+    { icon: siVisualstudiocode },
+    { icon: siVim },
+    { icon: siClion },
+    { icon: siDatagrip },
+  ],
+};
 
 export default function Page() {
   return (
@@ -69,36 +85,21 @@ export default function Page() {
         <div className="mt-2 flex space-x-1">
           <span>Habitual</span>
           <ul>
-            <li>
-              OS:{" "}
-              <SimpleIcon
-                icon={siApple}
-                title="Apple macOS"
-                className="h-6 align-text-bottom"
-              />{" "}
-              <SimpleIcon
-                icon={siUbuntu}
-                title="Ubuntu Server"
-                className="h-6 align-text-bottom"
-              />
-            </li>
-            <li>
-              browser:{" "}
-              <SimpleIcon
-                icon={siGooglechrome}
-                className="h-6 align-text-bottom"
-              />
-            </li>
-            <li>
-              IDE / editor:{" "}
-              <SimpleIcon
-                icon={siVisualstudiocode}
-                className="h-6 align-text-bottom"
-              />{" "}
-              <SimpleIcon icon={siVim} className="h-6 align-text-bottom" />{" "}
-              <SimpleIcon icon={siClion} className="h-6 align-text-bottom" />{" "}
-              <SimpleIcon icon={siDatagrip} className="h-6 align-text-bottom" />{" "}
-            </li>
+            {Object.entries(tools).map(([category, t]) => (
+              <li key={category}>
+                {category}:
+                {t.map(({ icon, title }) => (
+                  <Fragment key={icon.slug}>
+                    {" "}
+                    <SimpleIcon
+                      icon={icon}
+                      title={title}
+                      className="h-6 align-text-bottom"
+                    />
+                  </Fragment>
+                ))}
+              </li>
+            ))}
           </ul>
         </div>
         <div className="mt-4">
