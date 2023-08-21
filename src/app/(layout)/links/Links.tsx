@@ -51,6 +51,17 @@ const links = [
     desc: "OIer",
   },
   {
+    href: "https://www.amzcd.top/",
+    img: {
+      src: "https://cdn.luogu.com.cn/upload/image_hosting/3enxgywp.png",
+      width: 512,
+      height: 512,
+      alt: "diyanqi",
+    },
+    title: "Dignite's Blog!",
+    desc: "When Nothing Goes Right, Go Left.",
+  },
+  {
     href: "https://baoshuo.ren/",
     img: {
       src: baoshuoFavicon as StaticImageData,

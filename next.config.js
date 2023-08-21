@@ -22,6 +22,12 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "cdn.luogu.com.cn",
+        port: "",
+        pathname: "/upload/**",
+      },
+      {
+        protocol: "https",
         hostname: "blog.smallfang.fun",
         port: "",
         pathname: "/image/**",
