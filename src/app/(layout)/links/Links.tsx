@@ -48,7 +48,7 @@ const links = [
       alt: "smallfang",
     },
     title: "smallfang",
-    desc: "OIer",
+    desc: "摆烂第一人",
   },
   {
     href: "https://www.amzcd.top/",
