@@ -62,6 +62,17 @@ const links = [
     desc: "When Nothing Goes Right, Go Left.",
   },
   {
+    href: "https://imken.moe/",
+    img: {
+      src: "https://avatars.githubusercontent.com/u/41335471",
+      width: 460,
+      height: 460,
+      alt: "immccn123",
+    },
+    title: "Imken Luo",
+    desc: "おかえり、ドクター！",
+  },
+  {
     href: "https://baoshuo.ren/",
     img: {
       src: baoshuoFavicon as StaticImageData,
