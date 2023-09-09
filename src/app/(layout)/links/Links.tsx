@@ -9,7 +9,7 @@ const links = [
   {
     href: "https://weibohan.com/",
     img: {
-      src: "https://thirdqq.qlogo.cn/g?b=qq&nk=3415751684&s=640",
+      src: "https://thirdqq.qlogo.cn/g?b=qq&nk=3415751684&s=0",
       width: 640,
       height: 640,
       alt: "韦博瀚",
@@ -26,7 +26,18 @@ const links = [
       alt: "IceLava",
     },
     title: "IceLava",
-    desc: "ForkΨKillet",
+    desc: "Make with <3 by ForkΨKillet",
+  },
+  {
+    href: "https://smallfang.fun/",
+    img: {
+      src: "https://blog.smallfang.fun/image/tx.png",
+      width: 853,
+      height: 853,
+      alt: "smallfang",
+    },
+    title: "smallfang",
+    desc: "2007 / OIer / Beijing · China",
   },
   {
     href: "https://ucw.moe/",
@@ -40,17 +51,6 @@ const links = [
     desc: "无限 UCW 的个人博客",
   },
   {
-    href: "https://smallfang.fun/",
-    img: {
-      src: "https://blog.smallfang.fun/image/tx.png",
-      width: 853,
-      height: 853,
-      alt: "smallfang",
-    },
-    title: "smallfang",
-    desc: "摆烂第一人",
-  },
-  {
     href: "https://www.amzcd.top/",
     img: {
       src: "https://cdn.luogu.com.cn/upload/image_hosting/3enxgywp.png",
@@ -59,7 +59,7 @@ const links = [
       alt: "diyanqi",
     },
     title: "Dignite's Blog!",
-    desc: "When Nothing Goes Right, Go Left.",
+    desc: "高一dog，退役 OIer，兴趣爱好开发者。",
   },
   {
     href: "https://imken.moe/",
@@ -70,7 +70,7 @@ const links = [
       alt: "immccn123",
     },
     title: "Imken Luo",
-    desc: "おかえり、ドクター！",
+    desc: "OIer / Software Developer / INFP-T",
   },
   {
     href: "https://baoshuo.ren/",
@@ -79,7 +79,7 @@ const links = [
       alt: "Baoshuo",
     },
     title: "Baoshuo",
-    desc: "Even with a heavy past, accept it and continue moving forward.",
+    desc: "Student / OIer / Developer",
   },
 ];
 
