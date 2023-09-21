@@ -41,10 +41,10 @@ const tools: Record<string, { icon: SimpleIconType; title?: string }[]> = {
 };
 
 const skillIcons = (theme: "light" | "dark") =>
-  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=6`;
+  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=5`;
 
 export default function Page() {
-  const common = { alt: "Skills", width: 360, height: 0 };
+  const common = { alt: "Skills", width: 300, height: 0 };
   const {
     props: { srcSet: dark },
   } = getImgProps({ ...common, src: skillIcons("dark") });
