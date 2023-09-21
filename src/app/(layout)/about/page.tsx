@@ -20,7 +20,7 @@ import {
   siVisualstudiocode,
 } from "simple-icons";
 import ExternalLink from "@/components/ExternalLink";
-import GitHubButton from "./GitHubButton";
+import GitHubButton from "@/components/GitHubButton";
 import skills from "./skills.json";
 
 export const metadata = { title: "About | wxh.im" };
