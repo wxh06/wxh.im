@@ -11,7 +11,7 @@ export default function Layout({ children }: React.PropsWithChildren) {
             wxh06
           </Link>
         </div>
-        <div className="my-2 space-x-3 text-lg">
+        <div className="my-4 space-x-3 text-lg sm:my-2">
           {links.map(({ href, text }) => (
             <NavLink href={href} key={href}>
               {text}
