@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { unstable_getImgProps as getImgProps } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSchool,
@@ -20,6 +21,7 @@ import {
 } from "simple-icons";
 import ExternalLink from "@/components/ExternalLink";
 import GitHubButton from "./GitHubButton";
+import skills from "./skills.json";
 
 export const metadata = { title: "About | wxh.im" };
 
@@ -38,7 +40,18 @@ const tools: Record<string, { icon: SimpleIconType; title?: string }[]> = {
   ],
 };
 
+const skillIcons = (theme: "light" | "dark") =>
+  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=6`;
+
 export default function Page() {
+  const common = { alt: "Skills", width: 360, height: 0 };
+  const {
+    props: { srcSet: dark },
+  } = getImgProps({ ...common, src: skillIcons("dark") });
+  const {
+    props: { srcSet: light, ...rest },
+  } = getImgProps({ ...common, src: skillIcons("light") });
+
   return (
     <div className="flex flex-wrap justify-between text-lg">
       <main className="grow">
@@ -118,11 +131,10 @@ export default function Page() {
       </main>
       <div className="mx-auto my-5">
         <picture>
-          <source
-            srcSet="/skillicons/dark"
-            media="(prefers-color-scheme: dark)"
-          />
-          <img alt="Skills" src="/skillicons/light" />
+          <source media="(prefers-color-scheme: dark)" srcSet={dark} />
+          <source media="(prefers-color-scheme: light)" srcSet={light} />
+          {/* eslint-disable-next-line react/jsx-props-no-spreading, jsx-a11y/alt-text */}
+          <img {...rest} />
         </picture>
       </div>
     </div>

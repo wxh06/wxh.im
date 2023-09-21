@@ -1,14 +1,18 @@
-/** @type {string[]} */
-const skills = require("./skills.json");
-
-/** @param theme {"light" | "dark"} */
-const skillIcons = (theme) =>
-  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=6`;
+// @ts-check
 
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   images: {
+    dangerouslyAllowSVG: true,
+    contentDispositionType: "attachment",
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "skillicons.dev",
+        port: "",
+        pathname: "/icons",
+      },
       {
         protocol: "https",
         hostname: "*.githubusercontent.com",
@@ -33,18 +37,6 @@ const nextConfig = {
         pathname: "/image/**",
       },
     ],
-  },
-  async rewrites() {
-    return [
-      {
-        source: "/skillicons/light",
-        destination: skillIcons("light"),
-      },
-      {
-        source: "/skillicons/dark",
-        destination: skillIcons("dark"),
-      },
-    ];
   },
 };
 
