@@ -12,7 +12,7 @@ export interface Project {
 
 export default function Projects({ projects }: { projects: Project[] }) {
   return (
-    <div className="grid gap-3 py-4 md:grid-cols-2 xl:grid-cols-3">
+    <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
       {projects.map(({ href: url, name, github, description, icons }) => (
         <div
           className="rounded-xl border px-6 py-4 dark:border-gray-700"
