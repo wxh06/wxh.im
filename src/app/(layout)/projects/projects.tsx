@@ -1,6 +1,6 @@
 import type { SimpleIcon } from "simple-icons";
-import Icon from "@/components/SimpleIcon";
-import GitHubButton from "@/components/GitHubButton";
+import Icon from "@/components/simple-icon";
+import GitHubButton from "@/components/github-button";
 
 export interface Project {
   href: string;

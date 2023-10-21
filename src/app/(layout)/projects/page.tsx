@@ -23,8 +23,8 @@ import {
   siYarn,
   siEsbuild,
 } from "simple-icons";
-import ExternalLink from "@/components/ExternalLink";
-import Projects, { type Project } from "./Projects";
+import ExternalLink from "@/components/external-link";
+import Projects, { type Project } from "./projects";
 
 export const metadata = { title: "Projects | wxh.im" };
 

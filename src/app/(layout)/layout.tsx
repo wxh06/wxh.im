@@ -1,6 +1,6 @@
 import Link from "next/link";
 import links from "@/app/navigation.json";
-import NavLink from "./NavLink";
+import NavLink from "./nav-link";
 
 export default function Layout({ children }: React.PropsWithChildren) {
   return (

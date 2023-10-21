@@ -6,7 +6,7 @@ import {
   siTelegram,
   siTwitter,
 } from "simple-icons";
-import SimpleIcon from "@/components/SimpleIcon";
+import SimpleIcon from "@/components/simple-icon";
 import links from "./navigation.json";
 
 export const metadata = { title: "汪心禾 | wxh.im" };

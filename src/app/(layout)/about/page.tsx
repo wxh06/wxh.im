@@ -7,7 +7,7 @@ import {
   faLanguage,
 } from "@fortawesome/free-solid-svg-icons";
 import type { SimpleIcon as SimpleIconType } from "simple-icons";
-import SimpleIcon from "@/components/SimpleIcon";
+import SimpleIcon from "@/components/simple-icon";
 import {
   siApple,
   siArchlinux,
@@ -19,8 +19,8 @@ import {
   siVim,
   siVisualstudiocode,
 } from "simple-icons";
-import ExternalLink from "@/components/ExternalLink";
-import GitHubButton from "@/components/GitHubButton";
+import ExternalLink from "@/components/external-link";
+import GitHubButton from "@/components/github-button";
 import skills from "./skills.json";
 
 export const metadata = { title: "About | wxh.im" };
