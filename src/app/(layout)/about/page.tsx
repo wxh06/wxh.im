@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { unstable_getImgProps as getImgProps } from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,14 +9,14 @@ import type { SimpleIcon as SimpleIconType } from "simple-icons";
 import SimpleIcon from "@/components/simple-icon";
 import {
   siApple,
+  siArc,
   siArchlinux,
-  siClion,
-  siDatagrip,
-  siFirefoxbrowser,
   siGooglechrome,
+  siJetbrains,
   siUbuntu,
   siVim,
   siVisualstudiocode,
+  siWindows,
 } from "simple-icons";
 import ExternalLink from "@/components/external-link";
 import GitHubButton from "@/components/github-button";
@@ -30,13 +29,13 @@ const tools: Record<string, { icon: SimpleIconType; title?: string }[]> = {
     { icon: siApple, title: "Apple macOS" },
     { icon: siArchlinux },
     { icon: siUbuntu, title: "Ubuntu Server" },
+    { icon: siWindows, title: "Microsoft Windows" },
   ],
-  browser: [{ icon: siGooglechrome }, { icon: siFirefoxbrowser }],
-  "IDE / editor": [
+  browsers: [{ icon: siArc, title: "Arc Browser" }, { icon: siGooglechrome }],
+  "IDE / editors": [
     { icon: siVisualstudiocode },
+    { icon: siJetbrains, title: "JetBrains IDEs" },
     { icon: siVim },
-    { icon: siClion },
-    { icon: siDatagrip },
   ],
 };
 
@@ -86,8 +85,7 @@ export default function Page() {
               className="mr-2 h-6 w-6 align-text-bottom"
               title="location"
             />
-            Shanghai, People&apos;s Republic of China (
-            <span lang="zh-Hans">中华人民共和国 上海市</span>)
+            Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
           </li>
           <li>
             <FontAwesomeIcon
@@ -99,20 +97,18 @@ export default function Page() {
           </li>
         </ul>
         <div className="mt-2 flex space-x-1">
-          <span>Habitual</span>
+          <span>My</span>
           <ul>
             {Object.entries(tools).map(([category, t]) => (
               <li key={category}>
                 {category}:
                 {t.map(({ icon, title }) => (
-                  <Fragment key={icon.slug}>
-                    {" "}
-                    <SimpleIcon
-                      icon={icon}
-                      title={title}
-                      className="h-6 align-text-bottom"
-                    />
-                  </Fragment>
+                  <SimpleIcon
+                    icon={icon}
+                    title={title}
+                    className="ms-1.5 h-6 align-text-bottom"
+                    key={icon.slug}
+                  />
                 ))}
               </li>
             ))}
