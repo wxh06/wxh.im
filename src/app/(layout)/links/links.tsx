@@ -51,15 +51,15 @@ const links = [
     desc: "无限 UCW 的个人博客",
   },
   {
-    href: "https://www.amzcd.top/",
+    href: "https://undefined.moe/",
     img: {
-      src: "https://cdn.luogu.com.cn/upload/image_hosting/3enxgywp.png",
-      width: 512,
+      src: "https://raw.githubusercontent.com/undefined-moe/undefined-moe/master/kmmm.png",
+      width: 372,
       height: 512,
-      alt: "diyanqi",
+      alt: "Kemomimi Chan",
     },
-    title: "Dignite's Blog!",
-    desc: "高一dog，退役 OIer，兴趣爱好开发者。",
+    title: "undefined",
+    desc: "OIer（已退役） / Hydro-dev / 菜鸡 / 没啥特长",
   },
   {
     href: "https://imken.moe/",
@@ -71,6 +71,17 @@ const links = [
     },
     title: "Imken Luo",
     desc: "OIer / Software Developer / INFP-T",
+  },
+  {
+    href: "https://www.amzcd.top/",
+    img: {
+      src: "https://cdn.luogu.com.cn/upload/image_hosting/3enxgywp.png",
+      width: 512,
+      height: 512,
+      alt: "diyanqi",
+    },
+    title: "Dignite's Blog!",
+    desc: "高一dog，退役 OIer，兴趣爱好开发者。",
   },
   {
     href: "https://baoshuo.ren/",
