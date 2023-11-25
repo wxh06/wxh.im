@@ -15,11 +15,13 @@ import {
   siPython,
   siReact,
   siRedis,
+  siShieldsdotio,
   siSocketdotio,
   siTailwindcss,
   siTampermonkey,
   siTensorflow,
   siTypescript,
+  siVite,
   siVuedotjs,
   siYarn,
 } from "simple-icons";
@@ -52,14 +54,6 @@ const groups: { heading: string; projects: Project[] }[] = [
           </>
         ),
         icons: [siGo],
-      },
-      {
-        href: "https://wxh06.github.io/ultimate-tic-tac-toe/",
-        name: "Ultimate Tic-Tac-Toe",
-        github: "wxh06/ultimate-tic-tac-toe",
-        description:
-          "A board game composed of nine tic-tac-toe boards arranged in a 3 × 3 grid",
-        icons: [siTailwindcss, siVuedotjs, siPnpm, siTypescript],
       },
     ],
   },
@@ -105,6 +99,28 @@ const groups: { heading: string; projects: Project[] }[] = [
           siNodedotjs,
           siTypescript,
         ],
+      },
+      {
+        href: "https://badges.luogu.piterator.com/",
+        name: "luogu-badges",
+        github: "wxh06/luogu-badges",
+        description: "Dynamic badges for Luogu users and problems",
+        icons: [
+          siShieldsdotio,
+          siTailwindcss,
+          siReact,
+          siNextdotjs,
+          siPnpm,
+          siNodedotjs,
+          siTypescript,
+        ],
+      },
+      {
+        href: "https://tracker.exlg.cc/",
+        name: "lgtracker",
+        github: "wxh06/lgtracker",
+        description: "Show passed problems by contest",
+        icons: [siGo, siVuedotjs, siVite, siPnpm, siTypescript],
       },
       {
         href: "https://github.com/wxh06/luogu-captcha-bypass",
