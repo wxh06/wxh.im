@@ -85,18 +85,27 @@ const skillIcons = (theme: "light" | "dark") =>
             }
           </ul>
         </div>
-        <div class="mt-4">
-          <a
-            class="github-button"
-            href="https://github.com/wxh06"
-            data-size="large"
-            data-show-count="true"
-            aria-label="Follow @wxh06 on GitHub"
-          >
-            Follow @wxh06
-          </a>
+        <div class="mt-4" id="follow">
           <script>
-            import "github-buttons/dist/buttons.min";
+            import { render } from "github-buttons";
+
+            function r() {
+              const parent = document.getElementById("follow");
+              if (parent)
+                render(
+                  {
+                    href: "https://github.com/wxh06",
+                    "data-size": "large",
+                    "data-show-count": true,
+                    "aria-label": "Follow @wxh06 on GitHub",
+                    "data-text": "Follow @wxh06",
+                  },
+                  (el) => parent.appendChild(el),
+                );
+            }
+
+            r();
+            document.addEventListener("astro:after-swap", r);
           </script>
         </div>
       </main>
