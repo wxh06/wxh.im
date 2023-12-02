@@ -1,14 +1,20 @@
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
   extends: [
-    "eslint:recommended",
-    "airbnb-base",
     "plugin:astro/recommended",
     "plugin:astro/jsx-a11y-strict",
     "plugin:prettier/recommended",
   ],
-  rules: { "import/no-unresolved": [2, { ignore: ["^@astrojs/"] }] },
   overrides: [
+    {
+      files: ["*.js", "*.[mc]js"],
+      extends: [
+        "eslint:recommended",
+        "airbnb-base",
+        "plugin:prettier/recommended",
+      ],
+      rules: { "import/no-unresolved": [2, { ignore: ["^@astrojs/"] }] },
+    },
     {
       // Define the configuration for `.astro` file.
       files: ["*.astro"],
