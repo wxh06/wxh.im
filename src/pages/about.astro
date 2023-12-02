@@ -86,14 +86,18 @@ const skillIcons = (theme: "light" | "dark") =>
           </ul>
         </div>
         <div class="mt-4">
-          <!-- <GitHubButton
-          href="https://github.com/wxh06"
-          data-size="large"
-          data-show-count
-          aria-label="Follow @wxh06 on GitHub"
-        >
-          Follow @wxh06
-        </GitHubButton> -->
+          <a
+            class="github-button"
+            href="https://github.com/wxh06"
+            data-size="large"
+            data-show-count="true"
+            aria-label="Follow @wxh06 on GitHub"
+          >
+            Follow @wxh06
+          </a>
+          <script>
+            import "github-buttons/dist/buttons.min";
+          </script>
         </div>
       </main>
       <div class="mx-auto my-5">

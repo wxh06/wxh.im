@@ -20,6 +20,9 @@ dependencies:
   astro-iconify:
     specifier: ^1.2.0
     version: 1.2.0
+  github-buttons:
+    specifier: ^2.27.0
+    version: 2.27.0
   tailwindcss:
     specifier: ^3.0.24
     version: 3.3.5
@@ -2987,6 +2990,10 @@ packages:
       call-bind: 1.0.5
       get-intrinsic: 1.2.2
     dev: true
+
+  /github-buttons@2.27.0:
+    resolution: {integrity: sha512-PmfRMI2Rttg/2jDfKBeSl621sEznrsKF019SuoLdoNlO7qRUZaOyEI5Li4uW+79pVqnDtKfIEVuHTIJ5lgy64w==}
+    dev: false
 
   /github-from-package@0.0.0:
     resolution: {integrity: sha512-SyHy3T1v2NUXn29OsWdxmK6RwHD+vkj3v8en8AOBZ1wBQ/hCAQ5bAQTD02kW4W9tUp/3Qh6J8r9EvntiyCmOOw==}
