@@ -3,7 +3,7 @@ import Icon from "astro-iconify";
 import skills from "./skills.json";
 import ExternalLink from "../components/ExternalLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageLayout from "../layouts/PageLayout.astro";
+import Layout from "../layouts/Layout.astro";
 
 const tools: Record<string, { icon: string; title?: string }[]> = {
   OS: [
@@ -25,7 +25,7 @@ const skillIcons = (theme: "light" | "dark") =>
 ---
 
 <BaseLayout title="">
-  <PageLayout>
+  <Layout>
     <div class="flex flex-wrap justify-between text-lg">
       <main class="grow">
         <p class="mt-5 text-3xl">Hey there</p>
@@ -110,5 +110,5 @@ const skillIcons = (theme: "light" | "dark") =>
         </picture>
       </div>
     </div>
-  </PageLayout>
+  </Layout>
 </BaseLayout>
