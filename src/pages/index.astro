@@ -1,7 +1,7 @@
 ---
 import Icon from "astro-iconify";
 import links from "../navigation.json";
-import Layout from "../layouts/Layout.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 const contact = [
   {
@@ -30,10 +30,9 @@ const contact = [
     icon: "gmail",
   },
 ];
-
 ---
 
-<Layout title="Welcome to Astro.">
+<BaseLayout title="Welcome to Astro.">
   <div class="flex h-screen flex-col justify-center">
     <main class="text-center">
       <h1 class="text-4xl">汪心禾</h1>
@@ -51,7 +50,12 @@ const contact = [
                 target="_blank"
                 rel="noreferrer me"
               >
-                <Icon pack="simple-icons" name={icon} height="1em" title={title} />
+                <Icon
+                  pack="simple-icons"
+                  name={icon}
+                  height="1em"
+                  title={title}
+                />
               </a>
             </div>
           ))
@@ -72,4 +76,4 @@ const contact = [
       }
     </nav>
   </div>
-</Layout>
+</BaseLayout>
