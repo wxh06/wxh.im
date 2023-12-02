@@ -7,6 +7,7 @@ module.exports = {
     "plugin:astro/jsx-a11y-strict",
     "plugin:prettier/recommended",
   ],
+  rules: { "import/no-unresolved": [2, { ignore: ["^@astrojs/"] }] },
   overrides: [
     {
       // Define the configuration for `.astro` file.
