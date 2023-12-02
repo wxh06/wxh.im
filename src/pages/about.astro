@@ -1,0 +1,114 @@
+---
+import Icon from "astro-iconify";
+import skills from "./skills.json"
+import ExternalLink from "../components/ExternalLink.astro";
+import Layout from "../layouts/Layout.astro";
+import PageLayout from "../layouts/PageLayout.astro";
+
+const tools: Record<string, { icon: string; title?: string }[]> = {
+  OS: [
+    { icon: "apple", title: "Apple macOS" },
+    { icon: "archlinux" },
+    { icon: "ubuntu", title: "Ubuntu Server" },
+    { icon: "windows", title: "Microsoft Windows" },
+  ],
+  browsers: [{ icon: "arc", title: "Arc Browser" }, { icon: "googlechrome" }],
+  "IDE / editors": [
+    { icon: "visualstudiocode" },
+    { icon: "jetbrains", title: "JetBrains IDEs" },
+    { icon: "vim" },
+  ],
+};
+
+const skillIcons = (theme: "light" | "dark") =>
+  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=5`;
+
+---
+
+<Layout title="">
+  <PageLayout>
+    <div class="flex flex-wrap justify-between text-lg">
+      <main class="grow">
+        <p class="mt-5 text-3xl">Hey there</p>
+        <p class="mt-4 text-xl">
+          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (
+          <ExternalLink
+            href="https://en.wikipedia.org/wiki/Pinyin"
+            hrefLang="en"
+            icon={false}
+          >
+            pinyin
+          </ExternalLink>
+           : <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17 y.o. student &
+          developer.
+        </p>
+        <ul class="mt-2">
+          <li>
+            <Icon
+              name="fa6-solid:school"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="school"
+            />
+             Grade 12 at{" "}
+            <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
+              {"GHCIS"}
+            </ExternalLink>
+          </li>
+          <li>
+            <Icon
+              name="fa6-solid:location-dot"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="location"
+            />
+             Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
+          </li>
+          <li>
+            <Icon
+              name="fa6-solid:language"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="languages"
+            />
+             Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+          </li>
+        </ul>
+        <div class="mt-2 flex space-x-1">
+          <span>My</span>
+          <ul>
+            {
+              Object.entries(tools).map(([category, t]) => (
+                <li>
+                  {category}:
+                  {t.map(({ icon, title }) => (
+                    <Icon
+                      pack="simple-icons"
+                      name={icon}
+                      title={title}
+                      class="ms-1.5 h-6 align-text-bottom"
+                    />
+                  ))}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="mt-4">
+          <!-- <GitHubButton
+          href="https://github.com/wxh06"
+          data-size="large"
+          data-show-count
+          aria-label="Follow @wxh06 on GitHub"
+        >
+          Follow @wxh06
+        </GitHubButton> -->
+        </div>
+      </main>
+      <div class="mx-auto my-5">
+        <picture>
+        <source media="(prefers-color-scheme: dark)" srcset={skillIcons("dark")} />
+        <source media="(prefers-color-scheme: light)" srcset={skillIcons("light")} />
+        <img alt="skills" src={skillIcons("light")} />
+      </picture>
+      </div>
+    </div>
+  </PageLayout>
+</Layout>
