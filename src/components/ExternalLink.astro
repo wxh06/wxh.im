@@ -8,7 +8,7 @@ const { icon = true, ...props } = Astro.props;
   target="_blank"
   rel="noreferrer"
   {...props}
-><slot />{
+  ><slot />{
     icon && (
       <Icon
         height=".625em"
@@ -16,5 +16,5 @@ const { icon = true, ...props } = Astro.props;
         class="ml-1 align-baseline"
       />
     )
-  }
-</a>
+  }</a
+>

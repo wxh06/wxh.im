@@ -1,6 +1,6 @@
 ---
 import Icon from "astro-iconify";
-import skills from "./skills.json"
+import skills from "./skills.json";
 import ExternalLink from "../components/ExternalLink.astro";
 import Layout from "../layouts/Layout.astro";
 import PageLayout from "../layouts/PageLayout.astro";
@@ -22,7 +22,6 @@ const tools: Record<string, { icon: string; title?: string }[]> = {
 
 const skillIcons = (theme: "light" | "dark") =>
   `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=5`;
-
 ---
 
 <Layout title="">
@@ -31,16 +30,14 @@ const skillIcons = (theme: "light" | "dark") =>
       <main class="grow">
         <p class="mt-5 text-3xl">Hey there</p>
         <p class="mt-4 text-xl">
-          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (
-          <ExternalLink
+          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (<ExternalLink
             href="https://en.wikipedia.org/wiki/Pinyin"
             hrefLang="en"
             icon={false}
           >
-            pinyin
-          </ExternalLink>
-           : <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17 y.o. student &
-          developer.
+            {"pinyin"}
+          </ExternalLink>: <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17
+          y.o. student & developer.
         </p>
         <ul class="mt-2">
           <li>
@@ -48,8 +45,7 @@ const skillIcons = (theme: "light" | "dark") =>
               name="fa6-solid:school"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="school"
-            />
-             Grade 12 at{" "}
+            />Grade 12 at
             <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
               {"GHCIS"}
             </ExternalLink>
@@ -59,16 +55,14 @@ const skillIcons = (theme: "light" | "dark") =>
               name="fa6-solid:location-dot"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="location"
-            />
-             Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
+            />Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
           </li>
           <li>
             <Icon
               name="fa6-solid:language"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="languages"
-            />
-             Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+            />Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
           </li>
         </ul>
         <div class="mt-2 flex space-x-1">
@@ -83,7 +77,7 @@ const skillIcons = (theme: "light" | "dark") =>
                       pack="simple-icons"
                       name={icon}
                       title={title}
-                      class="ms-1.5 h-6 align-text-bottom"
+                      class="me-1.5 h-6 align-text-bottom"
                     />
                   ))}
                 </li>
@@ -104,10 +98,16 @@ const skillIcons = (theme: "light" | "dark") =>
       </main>
       <div class="mx-auto my-5">
         <picture>
-        <source media="(prefers-color-scheme: dark)" srcset={skillIcons("dark")} />
-        <source media="(prefers-color-scheme: light)" srcset={skillIcons("light")} />
-        <img alt="skills" src={skillIcons("light")} />
-      </picture>
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset={skillIcons("dark")}
+          />
+          <source
+            media="(prefers-color-scheme: light)"
+            srcset={skillIcons("light")}
+          />
+          <img alt="skills" src={skillIcons("light")} />
+        </picture>
       </div>
     </div>
   </PageLayout>
