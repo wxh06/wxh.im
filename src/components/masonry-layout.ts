@@ -1,11 +1,6 @@
-const r = () =>
-  import("masonry-layout")
-    .then(({ default: Masonry }) => {
-      document
-        .querySelectorAll("[data-masonry]")
-        .forEach((e) => new Masonry(e));
-    })
-    .catch(console.error); // eslint-disable-line no-console
+import Masonry from "masonry-layout";
 
-r();
-document.addEventListener("astro:after-swap", r);
+document.addEventListener(
+  "astro:after-swap",
+  () => new Masonry("[data-masonry]"),
+);
