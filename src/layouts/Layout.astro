@@ -1,0 +1,18 @@
+---
+import links from "../navigation.json";
+import NavLink from "../components/NavLink.astro";
+---
+
+<div
+  class="container mx-auto divide-y divide-gray-200 px-4 dark:divide-gray-700"
+>
+  <nav class="my-4 flex-wrap justify-between text-center sm:flex">
+    <div class="my-3 text-3xl sm:my-auto">
+      <a href="/" rel="prefetch"> wxh06</a>
+    </div>
+    <div class="my-4 space-x-3 text-lg sm:my-2">
+      {links.map(({ href, text }) => <NavLink href={href}>{text}</NavLink>)}
+    </div>
+  </nav>
+  <slot />
+</div>

@@ -1,0 +1,135 @@
+---
+import { getImage } from "astro:assets";
+import Icon from "astro-iconify";
+import skills from "../skills.json";
+import ExternalLink from "../components/ExternalLink.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Layout from "../layouts/Layout.astro";
+
+const tools: Record<string, { icon: string; title: string }[]> = {
+  OS: [
+    { icon: "apple", title: "Apple macOS" },
+    { icon: "archlinux", title: "Arch Linux" },
+    { icon: "ubuntu", title: "Ubuntu Server" },
+    { icon: "windows", title: "Microsoft Windows" },
+  ],
+  browsers: [
+    { icon: "arc", title: "Arc Browser" },
+    { icon: "googlechrome", title: "Google Chrome" },
+  ],
+  "IDE / editors": [
+    { icon: "visualstudiocode", title: "Visual Studio Code" },
+    { icon: "jetbrains", title: "JetBrains IDEs" },
+    { icon: "vim", title: "Vim" },
+  ],
+};
+
+const skillIcons = (theme?: "light" | "dark") =>
+  `https://skillicons.dev/icons?${new URLSearchParams({
+    i: skills.join(","),
+    ...(theme ? { theme } : {}),
+    perline: "5",
+  })}`;
+
+const common = { alt: "skills", width: 300, height: 1, format: "svg" };
+const defaultScheme = await getImage({ src: skillIcons(), ...common });
+const light = await getImage({ src: skillIcons("light"), ...common });
+const dark = await getImage({ src: skillIcons("dark"), ...common });
+---
+
+<BaseLayout title="About">
+  <Layout>
+    <div class="flex flex-wrap justify-between text-lg">
+      <main class="grow">
+        <p class="mt-5 text-3xl">Hey there</p>
+        <p class="mt-4 text-xl">
+          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (<ExternalLink
+            href="https://en.wikipedia.org/wiki/Pinyin"
+            hrefLang="en"
+            icon={false}
+          >
+            {"pinyin"}
+          </ExternalLink>: <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17
+          y.o. student & developer.
+        </p>
+        <ul class="mt-2">
+          <li>
+            <Icon
+              name="fa6-solid:school"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="school"
+            />Grade 12 at
+            <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
+              {"GHCIS"}
+            </ExternalLink>
+          </li>
+          <li>
+            <Icon
+              name="fa6-solid:location-dot"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="location"
+            />Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
+          </li>
+          <li>
+            <Icon
+              name="fa6-solid:language"
+              class="mr-2 h-6 w-6 align-text-bottom"
+              title="languages"
+            />Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+          </li>
+        </ul>
+        <div class="mt-2 flex space-x-1">
+          <span>My</span>
+          <ul>
+            {
+              Object.entries(tools).map(([category, t]) => (
+                <li>
+                  {category}:
+                  {t.map(({ icon, title }) => (
+                    <Icon
+                      pack="simple-icons"
+                      name={icon}
+                      title={title}
+                      class="me-1.5 h-6 align-text-bottom"
+                    />
+                  ))}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="mt-4" id="follow">
+          <script>
+            import { render } from "github-buttons";
+
+            function r() {
+              const parent = document.getElementById("follow");
+              if (parent)
+                render(
+                  {
+                    href: "https://github.com/wxh06",
+                    "data-size": "large",
+                    "data-show-count": true,
+                    "aria-label": "Follow @wxh06 on GitHub",
+                    "data-text": "Follow @wxh06",
+                  },
+                  (el) => parent.appendChild(el),
+                );
+            }
+
+            r();
+            document.addEventListener("astro:after-swap", r);
+          </script>
+        </div>
+      </main>
+      <div class="mx-auto my-5">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset={dark.src} />
+          <source media="(prefers-color-scheme: light)" srcset={light.src} />
+          {/* eslint-disable-next-line astro/jsx-a11y/alt-text */}
+          <img src={defaultScheme.src} {...defaultScheme.attributes} />
+        </picture>
+      </div>
+    </div>
+  </Layout>
+</BaseLayout>

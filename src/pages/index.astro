@@ -1,0 +1,79 @@
+---
+import Icon from "astro-iconify";
+import links from "../navigation.json";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const contact = [
+  {
+    url: "https://github.com/wxh06",
+    title: "GitHub @wxh06",
+    icon: "github",
+  },
+  {
+    url: "https://mastodon.social/@wangxinhe",
+    title: "Mastodon @wangxinhe@mastodon.social",
+    icon: "mastodon",
+  },
+  {
+    url: "https://twitter.com/wxh06",
+    title: "Twitter @wxh06",
+    icon: "twitter",
+  },
+  {
+    url: "https://t.me/wangxinhe",
+    title: "Telegram @wangxinhe",
+    icon: "telegram",
+  },
+  {
+    url: "mailto:wangxinhe06@gmail.com",
+    title: "Email: wangxinhe06@gmail.com",
+    icon: "gmail",
+  },
+];
+---
+
+<BaseLayout title="汪心禾">
+  <div class="flex h-screen flex-col justify-center">
+    <main class="text-center">
+      <h1 class="text-4xl">汪心禾</h1>
+      <p class="text-3xl">Wang, Xinhe</p>
+      <div
+        class="mt-4 flex justify-center divide-x divide-dashed divide-gray-300 text-3xl dark:divide-gray-600"
+      >
+        {
+          contact.map(({ url, title, icon }) => (
+            <div class="flex px-1">
+              <a
+                class="px-2 transition duration-100 hover:scale-110"
+                title={title}
+                href={url}
+                target="_blank"
+                rel="noreferrer me"
+              >
+                <Icon
+                  pack="simple-icons"
+                  name={icon}
+                  height="1em"
+                  title={title}
+                />
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </main>
+
+    <nav class="mt-6 flex justify-center space-x-4 text-lg">
+      {
+        links.map(({ href, text }) => (
+          <a
+            class="rounded-full bg-gray-200 px-4 py-1 transition-colors duration-100 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600"
+            href={href}
+          >
+            {text}
+          </a>
+        ))
+      }
+    </nav>
+  </div>
+</BaseLayout>
