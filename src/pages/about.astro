@@ -1,4 +1,5 @@
 ---
+import { getImage } from "astro:assets";
 import Icon from "astro-iconify";
 import skills from "../skills.json";
 import ExternalLink from "../components/ExternalLink.astro";
@@ -24,9 +25,16 @@ const tools: Record<string, { icon: string; title: string }[]> = {
 };
 
 const skillIcons = (theme?: "light" | "dark") =>
-  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${
-    theme ?? ""
-  }&perline=5`;
+  `https://skillicons.dev/icons?${new URLSearchParams({
+    i: skills.join(","),
+    ...(theme ? { theme } : {}),
+    perline: "5",
+  })}`;
+
+const common = { alt: "skills", width: 300, height: 1, format: "svg" };
+const defaultScheme = await getImage({ src: skillIcons(), ...common });
+const light = await getImage({ src: skillIcons("light"), ...common });
+const dark = await getImage({ src: skillIcons("dark"), ...common });
 ---
 
 <BaseLayout title="About">
@@ -116,15 +124,10 @@ const skillIcons = (theme?: "light" | "dark") =>
       </main>
       <div class="mx-auto my-5">
         <picture>
-          <source
-            media="(prefers-color-scheme: dark)"
-            srcset={skillIcons("dark")}
-          />
-          <source
-            media="(prefers-color-scheme: light)"
-            srcset={skillIcons("light")}
-          />
-          <img alt="skills" src={skillIcons()} width="300" />
+          <source media="(prefers-color-scheme: dark)" srcset={dark.src} />
+          <source media="(prefers-color-scheme: light)" srcset={light.src} />
+          {/* eslint-disable-next-line astro/jsx-a11y/alt-text */}
+          <img src={defaultScheme.src} {...defaultScheme.attributes} />
         </picture>
       </div>
     </div>
