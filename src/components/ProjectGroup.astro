@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Icon from "astro-iconify";
+
+interface Props {
+  projects: CollectionEntry<"projects">[];
+}
+
+const projects = await Promise.all(
+  Astro.props.projects.map(async (project) => ({
+    ...project,
+    ...(await project.render()),
+  })),
+);
+---
+
+<div class="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+  {
+    projects.map(({ data: { href: url, name, github, icons }, Content }) => (
+      <div class="rounded-xl border px-6 py-4 dark:border-gray-700">
+        <a
+          class="text-lg text-blue-500 hover:underline dark:text-blue-500"
+          href={url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          {name}
+        </a>
+        <div class="float-right ml-2">
+          <a
+            class="github-button"
+            href={`https://github.com/${github}`}
+            data-color-scheme="no-preference: light; light: light; dark: dark_dimmed;"
+            data-icon="octicon-star"
+            data-size="large"
+            data-show-count="true"
+            data-text="Star"
+            aria-label={`Star ${github} on GitHub`}
+          />
+        </div>
+        <div class="mt-2">
+          <Content />
+        </div>
+        <div class="float-right space-x-2">
+          {icons.map((icon) => (
+            <Icon
+              class="inline-block text-gray-500 dark:text-gray-400"
+              pack="simple-icons"
+              name={icon}
+              width={18}
+              height={18}
+              fill="currentColor"
+            />
+          ))}
+        </div>
+      </div>
+    ))
+  }
+</div>

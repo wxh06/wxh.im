@@ -1,0 +1,35 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Layout from "../layouts/Layout.astro";
+import ProjectGroup from "../components/ProjectGroup.astro";
+
+const projects = (await getCollection("projects")).sort(
+  ({ data: a }, { data: b }) => {
+    if (a.sortOrder < b.sortOrder) return -1;
+    if (a.sortOrder > b.sortOrder) return 1;
+    return 0;
+  },
+);
+---
+
+<BaseLayout title="">
+  <Layout>
+    <main class="py-4">
+      <section>
+        <ProjectGroup
+          projects={projects.filter(({ id }) => !id.includes("/"))}
+        />
+      </section>
+      <section>
+        <h2 class="mb-4 mt-6 text-xl">Luogu-related</h2>
+        <ProjectGroup
+          projects={projects.filter(({ id }) => id.startsWith("luogu/"))}
+        />
+      </section>
+    </main>
+    <script>
+      import "github-buttons/dist/buttons.min";
+    </script>
+  </Layout>
+</BaseLayout>

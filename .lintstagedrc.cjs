@@ -4,5 +4,5 @@ const prettierCheck = "prettier --check";
 
 module.exports = {
   "*.{js,mjs,cjs,ts,astro}": [eslint, prettierCheck],
-  "*.{md,html,css,json,yml,yaml}": prettier,
+  "*.{md,mdx,html,css,json,yml,yaml}": prettier,
 };
