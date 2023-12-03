@@ -5,18 +5,21 @@ import ExternalLink from "../components/ExternalLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Layout from "../layouts/Layout.astro";
 
-const tools: Record<string, { icon: string; title?: string }[]> = {
+const tools: Record<string, { icon: string; title: string }[]> = {
   OS: [
     { icon: "apple", title: "Apple macOS" },
-    { icon: "archlinux" },
+    { icon: "archlinux", title: "Arch Linux" },
     { icon: "ubuntu", title: "Ubuntu Server" },
     { icon: "windows", title: "Microsoft Windows" },
   ],
-  browsers: [{ icon: "arc", title: "Arc Browser" }, { icon: "googlechrome" }],
+  browsers: [
+    { icon: "arc", title: "Arc Browser" },
+    { icon: "googlechrome", title: "Google Chrome" },
+  ],
   "IDE / editors": [
-    { icon: "visualstudiocode" },
+    { icon: "visualstudiocode", title: "Visual Studio Code" },
     { icon: "jetbrains", title: "JetBrains IDEs" },
-    { icon: "vim" },
+    { icon: "vim", title: "Vim" },
   ],
 };
 
@@ -26,7 +29,7 @@ const skillIcons = (theme?: "light" | "dark") =>
   }&perline=5`;
 ---
 
-<BaseLayout title="">
+<BaseLayout title="About">
   <Layout>
     <div class="flex flex-wrap justify-between text-lg">
       <main class="grow">
