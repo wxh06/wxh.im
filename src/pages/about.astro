@@ -1,6 +1,6 @@
 ---
 import Icon from "astro-iconify";
-import skills from "./skills.json";
+import skills from "../skills.json";
 import ExternalLink from "../components/ExternalLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Layout from "../layouts/Layout.astro";
@@ -20,8 +20,10 @@ const tools: Record<string, { icon: string; title?: string }[]> = {
   ],
 };
 
-const skillIcons = (theme: "light" | "dark") =>
-  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${theme}&perline=5`;
+const skillIcons = (theme?: "light" | "dark") =>
+  `https://skillicons.dev/icons?i=${skills.join(",")}&theme=${
+    theme ?? ""
+  }&perline=5`;
 ---
 
 <BaseLayout title="">
@@ -119,7 +121,7 @@ const skillIcons = (theme: "light" | "dark") =>
             media="(prefers-color-scheme: light)"
             srcset={skillIcons("light")}
           />
-          <img alt="skills" src={skillIcons("light")} />
+          <img alt="skills" src={skillIcons()} width="300" />
         </picture>
       </div>
     </div>
