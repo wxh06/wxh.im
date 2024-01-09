@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import Icon from "astro-iconify";
+import { Icon } from "astro-icon/components";
 import ExternalLink from "./ExternalLink.astro";
 
 interface Props {
@@ -19,14 +19,12 @@ const projects = await Promise.all(
   {
     projects.map(({ data: { href: url, name, github, icons }, Content }) => (
       <div class="rounded-xl border px-6 py-4 dark:border-gray-700">
-        <a
+        <ExternalLink
           class="text-lg text-blue-500 hover:underline dark:text-blue-500"
           href={url}
-          target="_blank"
-          rel="noreferrer"
         >
           {name}
-        </a>
+        </ExternalLink>
         <div class="float-right ml-2">
           <ExternalLink
             href={`https://github.com/${github}`}
@@ -43,8 +41,7 @@ const projects = await Promise.all(
           {icons.map((icon) => (
             <Icon
               class="inline-block text-gray-500 dark:text-gray-400"
-              pack="simple-icons"
-              name={icon}
+              name={`simple-icons:${icon}`}
               width={18}
               height={18}
               fill="currentColor"

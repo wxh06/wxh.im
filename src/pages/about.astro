@@ -1,6 +1,6 @@
 ---
 import { getImage } from "astro:assets";
-import Icon from "astro-iconify";
+import { Icon } from "astro-icon/components";
 import skills from "../skills.json";
 import ExternalLink from "../components/ExternalLink.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -87,10 +87,9 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
                   {category}:
                   {t.map(({ icon, title }) => (
                     <Icon
-                      pack="simple-icons"
-                      name={icon}
+                      name={`simple-icons:${icon}`}
                       title={title}
-                      class="me-1.5 h-6 align-text-bottom"
+                      class="me-1.5 h-6 w-5 align-text-bottom"
                     />
                   ))}
                 </li>

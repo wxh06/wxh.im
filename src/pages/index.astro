@@ -1,5 +1,5 @@
 ---
-import Icon from "astro-iconify";
+import { Icon } from "astro-icon/components";
 import links from "../navigation.json";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
@@ -7,27 +7,27 @@ const contact = [
   {
     url: "https://github.com/wxh06",
     title: "GitHub @wxh06",
-    icon: "github",
+    icon: "simple-icons:github",
   },
   {
     url: "https://mastodon.social/@wangxinhe",
     title: "Mastodon @wangxinhe@mastodon.social",
-    icon: "mastodon",
+    icon: "simple-icons:mastodon",
   },
   {
     url: "https://twitter.com/wxh06",
     title: "Twitter @wxh06",
-    icon: "twitter",
+    icon: "simple-icons:twitter",
   },
   {
     url: "https://t.me/wangxinhe",
     title: "Telegram @wangxinhe",
-    icon: "telegram",
+    icon: "simple-icons:telegram",
   },
   {
     url: "mailto:wangxinhe06@gmail.com",
     title: "Email: wangxinhe06@gmail.com",
-    icon: "gmail",
+    icon: "simple-icons:gmail",
   },
 ];
 ---
@@ -50,12 +50,7 @@ const contact = [
                 target="_blank"
                 rel="noreferrer me"
               >
-                <Icon
-                  pack="simple-icons"
-                  name={icon}
-                  height="1em"
-                  title={title}
-                />
+                <Icon name={icon} title={title} />
               </a>
             </div>
           ))

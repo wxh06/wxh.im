@@ -1,19 +1,18 @@
 ---
-import Icon from "astro-iconify";
+import { Icon } from "astro-icon/components";
 const { icon = true, ...props } = Astro.props;
 ---
 
 <a
+  {...props}
   class="text-slate-500 hover:underline dark:text-slate-300"
   target="_blank"
   rel="noreferrer"
-  {...props}
   ><slot />{
     icon && (
       <Icon
-        height=".625em"
         name="fa6-solid:arrow-up-right-from-square"
-        class="ml-1 align-baseline"
+        class="ml-1 h-3 w-3 align-baseline"
       />
     )
   }</a
