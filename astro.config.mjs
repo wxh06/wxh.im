@@ -38,6 +38,12 @@ export default defineConfig({
         port: "",
         pathname: "/image/**",
       },
+      {
+        protocol: "https",
+        hostname: "yuzhen.pub",
+        port: "",
+        pathname: "/upload/**",
+      },
     ],
   },
 });
