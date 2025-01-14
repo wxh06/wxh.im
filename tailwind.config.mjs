@@ -1,4 +1,5 @@
-const defaultTheme = require("tailwindcss/defaultTheme");
+// @ts-check
+import defaultTheme from "tailwindcss/defaultTheme";
 
 /** @type {import('tailwindcss').Config} */
 export default {

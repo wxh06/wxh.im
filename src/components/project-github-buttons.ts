@@ -1,7 +1,7 @@
 import { render } from "github-buttons";
 
-const r = () =>
-  document.querySelectorAll("a[data-github-btn]").forEach((anchor) =>
+const r = () => {
+  document.querySelectorAll("a[data-github-btn]").forEach((anchor) => {
     render(
       {
         href: anchor.getAttribute("href")!,
@@ -14,8 +14,9 @@ const r = () =>
         "data-text": "Star",
       },
       (el) => anchor.parentNode?.replaceChild(el, anchor),
-    ),
-  );
+    );
+  });
+};
 
 r();
 document.addEventListener("astro:after-swap", r);
