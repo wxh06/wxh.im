@@ -34,15 +34,8 @@ export default defineConfig({
       },
       {
         protocol: "https",
-        hostname: "blog.smallfang.fun",
+        hostname: "file.rotriw.com",
         port: "",
-        pathname: "/image/**",
-      },
-      {
-        protocol: "https",
-        hostname: "yuzhen.pub",
-        port: "",
-        pathname: "/upload/**",
       },
     ],
   },
