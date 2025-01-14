@@ -15,7 +15,7 @@
     "@astrojs/tailwind": "^5.1.4",
     "@fontsource/inter": "^5.1.1",
     "@iconify-json/fa6-solid": "^1.2.3",
-    "@iconify-json/simple-icons": "^1.2.20",
+    "@iconify-json/simple-icons": "~1.1.115",
     "astro": "^5.1.6",
     "astro-icon": "^1.1.5",
     "bsi": "^0.0.7",

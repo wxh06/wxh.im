@@ -9,14 +9,11 @@ import Layout from "../layouts/Layout.astro";
 const tools: Record<string, { icon: string; title: string }[]> = {
   OS: [
     { icon: "apple", title: "Apple macOS" },
+    { icon: "asahilinux", title: "Asahi Linux" },
     { icon: "archlinux", title: "Arch Linux" },
     { icon: "ubuntu", title: "Ubuntu Server" },
-    { icon: "windows", title: "Microsoft Windows" },
   ],
-  browsers: [
-    { icon: "arc", title: "Arc Browser" },
-    { icon: "googlechrome", title: "Google Chrome" },
-  ],
+  browsers: [{ icon: "microsoftedge", title: "Microsoft Edge" }],
   "IDE / editors": [
     { icon: "visualstudiocode", title: "Visual Studio Code" },
     { icon: "jetbrains", title: "JetBrains IDEs" },
@@ -49,8 +46,8 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
             icon={false}
           >
             {"pinyin"}
-          </ExternalLink>: <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a 17
-          y.o. student & developer.
+          </ExternalLink>: <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a
+          student & developer.
         </p>
         <ul class="mt-2">
           <li>
@@ -58,9 +55,11 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
               name="fa6-solid:school"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="school"
-            />Grade 12 at
-            <ExternalLink href="https://www.ghcis.com/" hrefLang="zh-Hans-CN">
-              {"GHCIS"}
+            /><ExternalLink
+              href="https://www.imperial.ac.uk/computing/"
+              hrefLang="en-GB"
+            >
+              {"Department of Computing, Imperial College London"}
             </ExternalLink>
           </li>
           <li>
