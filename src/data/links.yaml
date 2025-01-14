@@ -1,0 +1,68 @@
+---
+- id: "weibohan"
+  href: "https://weibohan.com/"
+  img:
+    src: "https://thirdqq.qlogo.cn/g?b=qq&nk=3415751684&s=0"
+    alt: "韦博瀚"
+  title: "博瀚君の鸽子窝"
+  desc: "蒟蒻 OIer"
+
+- id: "icelava"
+  href: "https://icelava.top/"
+  img:
+    src: "https://raw.githubusercontent.com/ForkKILLET/ForkKILLET.github.io/master/icelava.jpg"
+  title: "IceLava"
+  desc: "Make with <3 by ForkΨKillet"
+
+- id: "smallfang"
+  href: "https://smallfang.fun/"
+  img:
+    src: "https://file.rotriw.com/static/smallfang_avatar.png"
+  title: "smallfang"
+  desc: "2007 / OIer / Beijing · China"
+
+- id: "ucw"
+  href: "https://ucw.moe/"
+  img:
+    src: "https://raw.githubusercontent.com/wuxianucw/ucw-desu/master/misaka_a.jpg"
+    alt: "无限 UCW"
+  title: "UCW's Blog"
+  desc: "无限 UCW 的个人博客"
+
+- id: "masnn"
+  href: "https://undefined.moe/"
+  img:
+    src: "https://raw.githubusercontent.com/undefined-moe/undefined-moe/master/kmmm.png"
+    alt: "Kemomimi Chan"
+  title: "undefined"
+  desc: "OIer（已退役） / Hydro-dev / 菜鸡 / 没啥特长"
+
+- id: "dyrox"
+  href: "https://www.dyrox2333.com/"
+  img:
+    src: "https://avatars.githubusercontent.com/u/66360381"
+  title: "Dyrox"
+  desc: "I make music and code."
+
+- id: "imken"
+  href: "https://imken.moe/"
+  img:
+    src: "https://avatars.githubusercontent.com/u/41335471"
+    alt: "immccn123"
+  title: "Imken Luo"
+  desc: "OIer / Developer / Forever 3 y.o."
+
+- id: "diyanqi"
+  href: "https://www.amzcd.top/"
+  img:
+    src: "https://cdn.luogu.com.cn/upload/image_hosting/3enxgywp.png"
+    alt: "diyanqi"
+  title: "Dignite's Blog!"
+  desc: "一臭写代码的高中牲"
+
+- id: "renbaoshuo"
+  href: "https://baoshuo.ren/"
+  img:
+    src: "https://cdn.jsdelivr.net/npm/bsi/favicon/favicon.svg"
+  title: "Baoshuo"
+  desc: "Student / Developer / ex-OIer"

@@ -18,6 +18,11 @@ export default defineConfig({
       },
       {
         protocol: "https",
+        hostname: "*.jsdelivr.net",
+        port: "",
+      },
+      {
+        protocol: "https",
         hostname: "*.githubusercontent.com",
         port: "",
       },
