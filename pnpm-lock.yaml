@@ -18,41 +18,41 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(astro@5.1.6(@types/node@22.10.6)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0))(tailwindcss@3.4.17)
       '@fontsource/inter':
-        specifier: ^5.0.16
+        specifier: ^5.1.1
         version: 5.1.1
       '@iconify-json/fa6-solid':
-        specifier: ^1.1.20
+        specifier: ^1.2.3
         version: 1.2.3
       '@iconify-json/simple-icons':
-        specifier: ^1.1.87
+        specifier: ^1.2.20
         version: 1.2.20
       astro:
         specifier: ^5.1.6
         version: 5.1.6(@types/node@22.10.6)(jiti@1.21.7)(rollup@4.30.1)(typescript@5.7.3)(yaml@2.7.0)
       astro-icon:
-        specifier: ^1.0.2
+        specifier: ^1.1.5
         version: 1.1.5
       bsi:
         specifier: ^0.0.7
         version: 0.0.7
       github-buttons:
-        specifier: ^2.27.0
+        specifier: ^2.29.1
         version: 2.29.1
       masonry-layout:
         specifier: ^4.2.2
         version: 4.2.2
       tailwindcss:
-        specifier: ^3.4.1
+        specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.7.3
         version: 5.7.3
     devDependencies:
       '@eslint/js':
         specifier: ^9.18.0
         version: 9.18.0
       '@types/masonry-layout':
-        specifier: ^4.2.7
+        specifier: ^4.2.8
         version: 4.2.8
       eslint:
         specifier: ^9.18.0
