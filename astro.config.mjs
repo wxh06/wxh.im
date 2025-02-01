@@ -40,7 +40,7 @@ export default defineConfig({
       },
       {
         protocol: "https",
-        hostname: "file.rotriw.com",
+        hostname: "cdn.rotriw.cn",
         port: "",
       },
     ],
