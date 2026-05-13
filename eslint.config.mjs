@@ -1,10 +1,11 @@
 // @ts-check
+import { defineConfig } from "eslint/config";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
 import eslintPluginAstro from "eslint-plugin-astro";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+import eslintConfigPrettier from "eslint-config-prettier";
 
-export default tseslint.config(
+export default defineConfig(
   { ignores: [".astro/", "dist/"] },
   {
     files: ["**/*.{js,mjs,cjs,ts}"],
@@ -25,5 +26,5 @@ export default tseslint.config(
   },
   eslintPluginAstro.configs.recommended,
   eslintPluginAstro.configs["jsx-a11y-strict"],
-  eslintPluginPrettierRecommended,
+  eslintConfigPrettier,
 );
