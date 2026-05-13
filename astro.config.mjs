@@ -1,13 +1,17 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
-import tailwind from "@astrojs/tailwind";
 import icon from "astro-icon";
+
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
   trailingSlash: "never",
-  integrations: [mdx(), tailwind(), icon()],
+  integrations: [mdx(), icon()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   image: {
     remotePatterns: [
       {

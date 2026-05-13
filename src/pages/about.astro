@@ -37,7 +37,7 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
 <BaseLayout title="About">
   <Layout>
     <div class="flex flex-wrap justify-between text-lg">
-      <main class="grow">
+      <div class="grow">
         <p class="mt-5 text-3xl">Hey there</p>
         <p class="mt-4 text-xl">
           I&rsquo;m <span lang="zh-Hans">汪心禾</span> (<ExternalLink
@@ -119,7 +119,7 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
             document.addEventListener("astro:after-swap", r);
           </script>
         </div>
-      </main>
+      </div>
       <div class="mx-auto my-5">
         <picture>
           <source media="(prefers-color-scheme: dark)" srcset={dark.src} />

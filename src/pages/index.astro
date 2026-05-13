@@ -47,15 +47,13 @@ const contact = [
       >
         {
           contact.map(({ url, title, icon }) => (
-            <div class="flex px-1">
-              <a
-                class="px-2 transition duration-100 hover:scale-110"
-                title={title}
-                href={url}
-                target="_blank"
-                rel="noreferrer me"
-              >
-                <Icon name={icon} title={title} />
+            <div class="px-3">
+              <a title={title} href={url} target="_blank" rel="noreferrer me">
+                <Icon
+                  class="transition-scale origin-center duration-100 hover:scale-110"
+                  name={icon}
+                  title={title}
+                />
               </a>
             </div>
           ))

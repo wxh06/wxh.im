@@ -15,19 +15,19 @@ const projects = (await getCollection("projects")).sort(
 
 <BaseLayout title="Projects">
   <Layout>
-    <main class="py-4">
+    <div class="py-4">
       <section>
         <ProjectGroup
           projects={projects.filter(({ id }) => !id.includes("/"))}
         />
       </section>
       <section>
-        <h2 class="mb-4 mt-6 text-xl">Luogu-related</h2>
+        <h2 class="mt-6 mb-4 text-xl">Luogu-related</h2>
         <ProjectGroup
           projects={projects.filter(({ id }) => id.startsWith("luogu/"))}
         />
       </section>
-    </main>
+    </div>
     <script src="../components/project-github-buttons.ts"></script>
   </Layout>
 </BaseLayout>
