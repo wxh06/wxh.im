@@ -1,12 +1,13 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection } from "astro:content";
 import { file, glob } from "astro/loaders";
+import { z } from "astro/zod";
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/projects" }),
   schema: z.object({
     name: z.string(),
     sortOrder: z.number(),
-    href: z.string().url(),
+    href: z.url(),
     github: z.string(),
     icons: z.array(z.string()),
   }),
@@ -15,9 +16,9 @@ const projects = defineCollection({
 const links = defineCollection({
   loader: file("./src/data/links.yaml"),
   schema: z.object({
-    href: z.string().url(),
+    href: z.url(),
     img: z.object({
-      src: z.string().url(),
+      src: z.url(),
       alt: z.string().optional(),
     }),
     title: z.string(),
