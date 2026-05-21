@@ -13,6 +13,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   image: {
+    dangerouslyProcessSVG: true,
     remotePatterns: [
       {
         protocol: "https",
