@@ -42,6 +42,12 @@ export default defineConfig({
         hostname: "cdn.rotriw.cn",
         port: "",
       },
+      {
+        protocol: "https",
+        hostname: "msuhrooom.com",
+        port: "",
+        pathname: "/assets/**",
+      },
     ],
   },
 });

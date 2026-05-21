@@ -38,11 +38,19 @@
   desc: "OIer（已退役） / Hydro-dev / 菜鸡 / 没啥特长"
 
 - id: "dyrox"
-  href: "https://www.dyrox2333.com/"
+  href: "https://dyrox.cat/"
   img:
     src: "https://avatars.githubusercontent.com/u/66360381"
   title: "Dyrox"
   desc: "I make music and code."
+
+- id: "sanpuko"
+  href: "https://msuhrooom.com/"
+  img:
+    src: "https://msuhrooom.com/assets/sanpuko_logo.PNG"
+    alt: "Sanpuko"
+  title: "Sanpuko"
+  desc: "哇哈哈！"
 
 - id: "imken"
   href: "https://imken.moe/"
