@@ -83,7 +83,7 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
             {
               Object.entries(tools).map(([category, t]) => (
                 <li>
-                  {category}:
+                  {category}:{" "}
                   {t.map(({ icon, title }) => (
                     <Icon
                       name={`simple-icons:${icon}`}

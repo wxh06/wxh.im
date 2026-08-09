@@ -9,7 +9,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   trailingSlash: "never",
   integrations: [mdx(), icon()],
-  compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
   },
