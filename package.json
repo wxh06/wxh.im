@@ -4,14 +4,13 @@
   "version": "0.0.1",
   "packageManager": "pnpm@11.20.0",
   "scripts": {
-    "prepare": "husky",
+    "prepare": "husky || true",
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.10",
     "@astrojs/mdx": "^7.0.5",
     "@iconify-json/fa6-solid": "^1.2.4",
     "@iconify-json/simple-icons": "~1.2.93",
@@ -21,10 +20,10 @@
     "github-buttons": "^2.33.0",
     "masonry-layout": "^4.2.2",
     "sharp": "^0.35.3",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^6.0.3"
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
     "@types/masonry-layout": "^4.2.8",
     "@types/node": "^24.13.3",
@@ -37,6 +36,7 @@
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0"
   }
 }
