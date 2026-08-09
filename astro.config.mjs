@@ -17,6 +17,12 @@ export default defineConfig({
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "skillicons.dev",
+        port: "",
+        pathname: "/icons",
+      },
+      {
+        protocol: "https",
         hostname: "*.jsdelivr.net",
         port: "",
       },
