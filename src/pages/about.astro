@@ -40,14 +40,16 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
       <div class="grow">
         <p class="mt-5 text-3xl">Hey there</p>
         <p class="mt-4 text-xl">
-          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (<ExternalLink
+          I&rsquo;m <span lang="zh-Hans">汪心禾</span> (
+          <ExternalLink
             href="https://en.wikipedia.org/wiki/Pinyin"
             hrefLang="en"
             icon={false}
           >
             {"pinyin"}
-          </ExternalLink>: <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a
-          student & developer.
+          </ExternalLink>
+          : <span lang="zh-Latn-pinyin">Wāng Xīnhé</span>), a student &
+          developer.
         </p>
         <ul class="mt-2">
           <li>
@@ -55,7 +57,8 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
               name="fa6-solid:school"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="school"
-            /><ExternalLink
+            />
+            <ExternalLink
               href="https://www.imperial.ac.uk/computing/"
               hrefLang="en-GB"
             >
@@ -67,33 +70,33 @@ const dark = await getImage({ src: skillIcons("dark"), ...common });
               name="fa6-solid:location-dot"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="location"
-            />Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
+            />
+            Shanghai, China (<span lang="zh-Hans">中国 上海</span>)
           </li>
           <li>
             <Icon
               name="fa6-solid:language"
               class="mr-2 h-6 w-6 align-text-bottom"
               title="languages"
-            />Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
+            />
+            Simplified Chinese (<span lang="zh-Hans">简体中文</span>), English
           </li>
         </ul>
         <div class="mt-2 flex space-x-1">
           <span>My</span>
           <ul>
-            {
-              Object.entries(tools).map(([category, t]) => (
-                <li>
-                  {category}:{" "}
-                  {t.map(({ icon, title }) => (
-                    <Icon
-                      name={`simple-icons:${icon}`}
-                      title={title}
-                      class="me-1.5 h-6 w-5 align-text-bottom"
-                    />
-                  ))}
-                </li>
-              ))
-            }
+            {Object.entries(tools).map(([category, t]) => (
+              <li>
+                {category}:{" "}
+                {t.map(({ icon, title }) => (
+                  <Icon
+                    name={`simple-icons:${icon}`}
+                    title={title}
+                    class="me-1.5 h-6 w-5 align-text-bottom"
+                  />
+                ))}
+              </li>
+            ))}
           </ul>
         </div>
         <div class="mt-4" id="follow">
