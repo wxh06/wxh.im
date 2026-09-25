@@ -2,7 +2,5 @@
 import { getViteConfig } from "astro/config";
 
 export default getViteConfig({
-  test: {
-    passWithNoTests: true,
-  },
+  test: {},
 });

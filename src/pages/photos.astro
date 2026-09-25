@@ -4,44 +4,66 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Layout from "@/layouts/Layout.astro";
+import { groupTimeline } from "@/photos/timeline";
 
-const photos = (await getCollection("photos")).sort(
-  (a, b) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated),
+const entries = groupTimeline(
+  (await getCollection("photos")).map(({ id, data }) => ({ id, ...data })),
 );
+
+const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
+// Entry days are date-only strings, which parse as UTC midnight; formatting
+// in UTC keeps them on the same calendar day.
+const days = new Intl.DateTimeFormat("en", {
+  dateStyle: "long",
+  timeZone: "UTC",
+});
+const formatDays = (start: string, end: string) =>
+  days.formatRange(new Date(start), new Date(end));
 
 const join = (parts: (string | undefined)[], separator: string) =>
   parts.filter(Boolean).join(separator);
+
+// The sublocation is left out when the heading already names it, and the
+// file name only stands in when nothing else identifies the photo.
+const caption = (
+  entry: { location?: string | undefined },
+  photo: {
+    id: string;
+    title?: string | undefined;
+    location?: string | undefined;
+  },
+) => photo.title ?? (entry.location ? undefined : (photo.location ?? photo.id));
 ---
 
 <BaseLayout title="Photography">
   <Layout>
-    <ul class="py-4">
-      {photos.map(({ id, data: { image, title, ...data } }) => (
-        <li class="mb-6">
-          <Image src={image} width={320} alt={title ?? id} />
-          <p>{title ?? id}</p>
-          <p class="text-sm text-gray-500">
+    <ol class="py-4">
+      {entries.map((entry) => (
+        <li class="mb-8">
+          <h2 class="mb-2 text-xl">
+            {formatDays(entry.start, entry.end)} ·{" "}
             {join(
-              [
-                data.dateCreated,
-                join([data.location, data.city, data.countryCode], ", "),
-              ],
-              " · ",
+              [entry.location, entry.city, regionNames.of(entry.countryCode)],
+              ", ",
             )}
-          </p>
-          <p class="text-sm text-gray-500">
-            {join(
-              [join([data.camera.make, data.camera.model], " "), data.lens],
-              " · ",
-            )}
-          </p>
-          <p class="text-sm text-gray-500">
-            ISO {data.exposure.iso} · {data.exposure.focalLength} mm (
-            {data.exposure.focalLength35mm} mm equiv.) · <i>f</i>/
-            {data.exposure.fNumber} · {data.exposure.exposureTime}
-          </p>
+          </h2>
+          <ul class="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-stretch">
+            {entry.photos.map(({ id, image, title, ...data }) => (
+              <li>
+                <Image src={image} height={240} alt={title ?? id} />
+                <p class="text-sm text-gray-500">
+                  {caption(entry, { id, title, location: data.location })}
+                </p>
+                <p class="text-sm text-gray-500">
+                  ISO {data.exposure.iso} · {data.exposure.focalLength} mm (
+                  {data.exposure.focalLength35mm} mm equiv.) · <i>f</i>/
+                  {data.exposure.fNumber} · {data.exposure.exposureTime}
+                </p>
+              </li>
+            ))}
+          </ul>
         </li>
       ))}
-    </ul>
+    </ol>
   </Layout>
 </BaseLayout>
