@@ -42,7 +42,12 @@ function currentStay(stays: Stay[]): Stay | undefined {
   return current;
 }
 
-async function mount(card: HTMLElement, container: HTMLElement, stays: Stay[]) {
+async function mount(
+  card: HTMLElement,
+  container: HTMLElement,
+  caption: HTMLElement | null,
+  stays: Stay[],
+) {
   const { Map, setWorkerUrl } = await import("maplibre-gl");
   // The page may already be scrolled, as when it is returned to: the map
   // starts at that stay rather than flying there from the first.
@@ -127,8 +132,21 @@ async function mount(card: HTMLElement, container: HTMLElement, stays: Stay[]) {
   });
 
   let current: Stay | undefined;
+  caption?.addEventListener("click", () => {
+    scrollTo(current);
+  });
   const activate = (stay: Stay) => {
     if (stay === current) return;
+    if (caption) {
+      // The stay's heading already says when and where; repeat it above
+      // the map, since the heading itself has scrolled away by the time
+      // the map switches.
+      for (const part of ["place", "date"]) {
+        const target = caption.querySelector(`[data-${part}]`);
+        const source = stay.item.querySelector(`[data-stay-${part}]`);
+        if (target) target.textContent = source?.textContent.trim() ?? "";
+      }
+    }
     if (current) {
       map.setFeatureState(
         { source: "stays", id: current.id },
@@ -155,8 +173,8 @@ async function mount(card: HTMLElement, container: HTMLElement, stays: Stay[]) {
     });
   };
   activate(initial);
-  // Revealed only now: until the tiles are in, the card is a grey
-  // box.
+  // Revealed only now: until the tiles are in and the caption filled, the
+  // card is a grey box over an empty line.
   card.classList.remove("invisible");
   addEventListener("scroll", onScroll, { passive: true });
   addEventListener("resize", onScroll);
@@ -178,10 +196,13 @@ async function mount(card: HTMLElement, container: HTMLElement, stays: Stay[]) {
 document.addEventListener("astro:page-load", () => {
   const card = document.querySelector<HTMLElement>("[data-timeline-map-card]");
   const container = document.querySelector<HTMLElement>("[data-timeline-map]");
+  const caption = document.querySelector<HTMLElement>(
+    "[data-timeline-map-caption]",
+  );
   const stays = collectStays();
   if (!card || !container || stays.length === 0) return;
 
-  mount(card, container, stays).catch((error: unknown) => {
+  mount(card, container, caption, stays).catch((error: unknown) => {
     console.error("Failed to mount the timeline map", error);
   });
 });

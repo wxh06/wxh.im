@@ -55,11 +55,17 @@ const caption = (
             data-lat={centers[index]?.latitude}
           >
             <h2 class="mb-2 text-xl">
-              {formatDays(entry.start, entry.end)} ·{" "}
-              {join(
-                [entry.location, entry.city, regionNames.of(entry.countryCode)],
-                ", ",
-              )}
+              <span data-stay-date>{formatDays(entry.start, entry.end)}</span> ·{" "}
+              <span data-stay-place>
+                {join(
+                  [
+                    entry.location,
+                    entry.city,
+                    regionNames.of(entry.countryCode),
+                  ],
+                  ", ",
+                )}
+              </span>
             </h2>
             <ul class="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-stretch">
               {entry.photos.map(({ id, image, title, ...data }) => (
@@ -87,6 +93,14 @@ const caption = (
         class="invisible sticky bottom-4 flex h-[30svh] flex-col overflow-hidden rounded-lg shadow-lg ring-1 ring-gray-200 short:hidden sm:short:top-4 sm:short:mt-4 sm:short:bottom-auto sm:short:flex sm:short:h-[calc(100vh-2rem)] sm:short:w-[35%] sm:short:shrink-0 sm:short:self-start lg:not-short:mr-[calc(50%-50cqw+1rem)] lg:ml-auto lg:h-auto lg:w-[35%] dark:ring-gray-700"
         data-timeline-map-card
       >
+        <button
+          class="w-full bg-white px-3 py-1.5 text-left text-sm dark:bg-zinc-900"
+          type="button"
+          data-timeline-map-caption
+        >
+          <span class="block" data-place></span>
+          <span class="block text-xs text-gray-500" data-date></span>
+        </button>
         {/* The library sets `position: relative` on its container, so the
         sticky positioning has to live on a wrapper. */}
         <div
