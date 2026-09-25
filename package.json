@@ -20,6 +20,7 @@
     "astro-icon": "^1.2.0",
     "exifreader": "^4.45.2",
     "github-buttons": "^2.33.0",
+    "maplibre-gl": "^6.11.2",
     "masonry-layout": "^4.2.2",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
