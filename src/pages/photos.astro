@@ -1,0 +1,47 @@
+---
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
+
+const photos = (await getCollection("photos")).sort(
+  (a, b) => Date.parse(b.data.dateCreated) - Date.parse(a.data.dateCreated),
+);
+
+const join = (parts: (string | undefined)[], separator: string) =>
+  parts.filter(Boolean).join(separator);
+---
+
+<BaseLayout title="Photography">
+  <Layout>
+    <ul class="py-4">
+      {photos.map(({ id, data: { image, title, ...data } }) => (
+        <li class="mb-6">
+          <Image src={image} width={320} alt={title ?? id} />
+          <p>{title ?? id}</p>
+          <p class="text-sm text-gray-500">
+            {join(
+              [
+                data.dateCreated,
+                join([data.location, data.city, data.countryCode], ", "),
+              ],
+              " · ",
+            )}
+          </p>
+          <p class="text-sm text-gray-500">
+            {join(
+              [join([data.camera.make, data.camera.model], " "), data.lens],
+              " · ",
+            )}
+          </p>
+          <p class="text-sm text-gray-500">
+            ISO {data.exposure.iso} · {data.exposure.focalLength} mm (
+            {data.exposure.focalLength35mm} mm equiv.) · <i>f</i>/
+            {data.exposure.fNumber} · {data.exposure.exposureTime}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </Layout>
+</BaseLayout>
