@@ -13,6 +13,7 @@ export default {
     "^astro:",
     "^astro(/.+)?$",
     "^@astrojs/",
+    "vitest",
     "<THIRD_PARTY_MODULES>",
     "",
     "^@/",
