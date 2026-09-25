@@ -4,6 +4,10 @@ import { fileURLToPath } from "node:url";
 import type { Loader } from "astro/loaders";
 import ExifReader, { type ExpandedTags } from "exifreader";
 
+import type { GeoPoint } from "@/photos/geo";
+
+import { geocode, RateLimited } from "./geocode";
+
 export interface PhotosLoaderOptions {
   /** Directory holding the exported JPEGs, relative to the project root. */
   base: string;
@@ -61,6 +65,9 @@ function extract(tags: ExpandedTags, fileName: string) {
   };
 }
 
+type Extracted = ReturnType<typeof extract>;
+type PhotoData = Extracted & { place?: GeoPoint | undefined };
+
 export function photos({ base }: PhotosLoaderOptions): Loader {
   return {
     name: "photos",
@@ -75,6 +82,32 @@ export function photos({ base }: PhotosLoaderOptions): Loader {
           .split(path.sep)
           .join("/");
       };
+
+      /**
+       * Position of the place a photo shows, its sublocation, which is
+       * distinct from where the camera was. Photos from one place share it,
+       * so an entry already in the store answers for any new photo from the
+       * same place without a lookup.
+       */
+      async function locate({
+        location,
+        city,
+        countryCode,
+      }: Extracted): Promise<GeoPoint | undefined> {
+        if (!location || !city || !countryCode) return undefined;
+        for (const entry of store.values()) {
+          const data = entry.data as PhotoData;
+          if (
+            data.place &&
+            data.location === location &&
+            data.city === city &&
+            data.countryCode === countryCode
+          ) {
+            return data.place;
+          }
+        }
+        return geocode(`${location}, ${city}`, countryCode);
+      }
 
       async function loadFile(filePath: string) {
         const id = idOf(filePath);
@@ -94,12 +127,31 @@ export function photos({ base }: PhotosLoaderOptions): Loader {
         const tags = ExifReader.load(await readFile(filePath), {
           expanded: true,
         });
+        const extracted = extract(tags, path.basename(filePath));
+        let place: GeoPoint | undefined;
+        let located = true;
+        try {
+          place = await locate(extracted);
+        } catch (error: unknown) {
+          // Being rate limited is not one lookup failing but the run
+          // breaching the usage policy: it fails the build outright.
+          if (error instanceof RateLimited) throw error;
+          logger.warn(`Could not geocode ${id}: ${String(error)}`);
+          located = false;
+        }
         const data = await context.parseData({
           id,
           filePath: relativePath,
-          data: extract(tags, path.basename(filePath)),
+          data: { ...extracted, place },
         });
-        store.set({ id, data, digest, filePath: relativePath });
+        // A lookup that failed is more likely the network than the name,
+        // so the entry is stored without a digest and retried next sync.
+        store.set({
+          id,
+          data,
+          filePath: relativePath,
+          ...(located && { digest }),
+        });
         logger.debug(`Loaded ${id}`);
       }
 
