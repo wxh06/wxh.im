@@ -230,14 +230,40 @@ async function mount(
     ["feature-state", "hover"],
     false,
   ];
-  const lit: ExpressionSpecification = ["any", active, hover];
+  const marker: ExpressionSpecification = [
+    "boolean",
+    ["feature-state", "marker"],
+    true,
+  ];
+  // Opacity by state: hovered, in the current stay, or in another stay.
+  // While anything is hovered, everything else fades further, so that the
+  // hovered point stands out among the neighbours a city centre packs in.
+  const DIM = 0.3;
+  const tiers = (
+    focused: boolean,
+    hovered: number,
+    active_: number,
+    idle: number,
+  ): ExpressionSpecification => {
+    const dim = focused ? DIM : 1;
+    return [
+      "case",
+      hover,
+      hovered,
+      ["case", active, active_ * dim, idle * dim],
+    ];
+  };
+  const outlineOpacity = (focused: boolean) => ({
+    fill: tiers(focused, 0.3, 0.2, 0.1),
+    line: tiers(focused, 1, 1, 0.4),
+  });
   map.addLayer({
     id: "outline-fills",
     type: "fill",
     source: "outlines",
     paint: {
       "fill-color": PLACE_COLOR,
-      "fill-opacity": ["case", hover, 0.3, ["case", active, 0.2, 0.1]],
+      "fill-opacity": outlineOpacity(false).fill,
     },
   });
   map.addLayer({
@@ -247,21 +273,19 @@ async function mount(
     paint: {
       "line-color": PLACE_COLOR,
       "line-width": ["case", hover, 3, ["case", active, 2, 1]],
-      "line-opacity": ["case", lit, 1, 0.4],
+      "line-opacity": outlineOpacity(false).line,
     },
   });
-  const marker: ExpressionSpecification = [
-    "boolean",
-    ["feature-state", "marker"],
-    true,
-  ];
   /** A kind of point on the map: a coloured dot on a rim. */
   interface PointKind {
     source: string;
     color: string;
     radius: { active: number; idle: number };
-    /** How strongly the dot is coloured, 0 to 1, by state. */
-    strength: ExpressionSpecification;
+    /**
+     * How strongly the dot is coloured, 0 to 1, by state; `focused` while
+     * anything on the map is hovered.
+     */
+    strength: (focused: boolean) => ExpressionSpecification;
     /** Whether the point is drawn at all. */
     shown: ExpressionSpecification;
   }
@@ -274,14 +298,14 @@ async function mount(
       source: "places",
       color: PLACE_COLOR,
       radius: MARKER_RADIUS,
-      strength: ["case", hover, 1, ["case", active, 0.75, 0.4]],
+      strength: (focused) => tiers(focused, 1, 0.75, 0.4),
       shown: marker,
     },
     {
       source: "cameras",
       color: CAMERA_COLOR,
       radius: { active: 3, idle: 2 },
-      strength: ["case", hover, 1, ["case", active, 0.75, 0.4]],
+      strength: (focused) => tiers(focused, 1, 0.75, 0.4),
       shown: ["literal", true],
     },
   ];
@@ -290,10 +314,11 @@ async function mount(
   // other. It pales towards white, the basemap's own paper; in dark mode
   // the filter that darkens the basemap darkens that too, so the dot
   // fades into the map in either theme.
+  let focused = false;
   const shade = (kind: PointKind): ExpressionSpecification => [
     "interpolate",
     ["linear"],
-    kind.strength,
+    kind.strength(focused),
     0,
     "#ffffff",
     1,
@@ -329,17 +354,25 @@ async function mount(
   // white on the basemap and has nothing to pale towards, and it fades
   // only with the stay, not with the dot's paling: translucent, it would
   // show the dot it parts from.
-  const rimOpacity: ExpressionSpecification = ["case", lit, 1, 0.4];
   type Shown = (kind: PointKind) => ExpressionSpecification;
-  const drawn: string[] = [];
+  const rimOpacity = (
+    kind: PointKind,
+    shown: Shown,
+  ): ExpressionSpecification => [
+    "case",
+    shown(kind),
+    tiers(focused, 1, 1, 0.4),
+    0,
+  ];
+  const drawn: { suffix: string; shown: Shown }[] = [];
   /** Draws every kind, rims under dots, in layers named with the suffix. */
   const draw = (suffix: string, shown: Shown) => {
-    drawn.push(suffix);
+    drawn.push({ suffix, shown });
     for (const kind of kinds) {
       disc(kind, `${kind.source}${suffix}-rims`, {
         "circle-radius": radius(kind, RIM_WIDTH),
         "circle-color": rimColor(),
-        "circle-opacity": ["case", shown(kind), rimOpacity, 0],
+        "circle-opacity": rimOpacity(kind, shown),
       });
       disc(kind, `${kind.source}${suffix}`, {
         "circle-color": shade(kind),
@@ -353,18 +386,22 @@ async function mount(
   // be drawn later.
   draw("", (kind) => ["all", ["!", hover], kind.shown]);
   draw("-hovered", (kind) => ["all", hover, kind.shown]);
-  const recolor = () => {
-    for (const suffix of drawn) {
+  // The colours depend on the theme and on whether anything is hovered.
+  const repaint = () => {
+    for (const { suffix, shown } of drawn) {
       for (const kind of kinds) {
+        const id = `${kind.source}${suffix}`;
+        map.setPaintProperty(`${id}-rims`, "circle-color", rimColor());
         map.setPaintProperty(
-          `${kind.source}${suffix}-rims`,
-          "circle-color",
-          rimColor(),
+          `${id}-rims`,
+          "circle-opacity",
+          rimOpacity(kind, shown),
         );
+        map.setPaintProperty(id, "circle-color", shade(kind));
       }
     }
   };
-  dark.addEventListener("change", recolor);
+  dark.addEventListener("change", repaint);
   // A place is named only while hovered: a label for every place would
   // need room the map does not have, and the photos name the places anyway.
   // The label is filtered in rather than faded in so that it exists only
@@ -446,6 +483,13 @@ async function mount(
     for (const key of hovered) map.setFeatureState(key, { hover: false });
     hovered = items.flatMap(keysOf);
     for (const key of hovered) map.setFeatureState(key, { hover: true });
+    if (focused !== hovered.length > 0) {
+      focused = !focused;
+      const outline = outlineOpacity(focused);
+      map.setPaintProperty("outline-fills", "fill-opacity", outline.fill);
+      map.setPaintProperty("outline-lines", "line-opacity", outline.line);
+      repaint();
+    }
     map.setFilter(
       "place-labels",
       labelled(
@@ -547,7 +591,7 @@ async function mount(
       document.removeEventListener("mouseover", onPhotoOver);
       document.removeEventListener("mouseout", onPhotoOut);
       if (frame !== undefined) cancelAnimationFrame(frame);
-      dark.removeEventListener("change", recolor);
+      dark.removeEventListener("change", repaint);
       map.remove();
     },
     { once: true },
