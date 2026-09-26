@@ -3,7 +3,7 @@ import { file, glob } from "astro/loaders";
 import { z } from "astro/zod";
 
 import { photos as photosLoader } from "@/loaders/photos";
-import { geoPoint } from "@/photos/geo";
+import { geoPoint, place } from "@/photos/geo";
 
 const projects = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: "./src/data/projects" }),
@@ -62,8 +62,8 @@ const photos = defineCollection({
       keywords: z.array(z.string()),
       /** Where the camera was. */
       gps: geoPoint.optional(),
-      /** Where the sublocation is, looked up by name. */
-      place: geoPoint.optional(),
+      /** The sublocation, looked up by name. */
+      place: place.optional(),
       camera: z.object({ make: z.string().optional(), model: z.string() }),
       lens: z.string().optional(),
       exposure: z.object({

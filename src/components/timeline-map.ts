@@ -4,7 +4,7 @@ import type {
 } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
-import type { GeoPoint, StayGeometry } from "@/photos/geo";
+import type { Bounds, GeoPoint, Outline, StayGeometry } from "@/photos/geo";
 
 const STYLE = "https://tiles.openfreemap.org/styles/positron";
 // How far a stay's frame may zoom in: a stay of one place still shows the
@@ -124,33 +124,104 @@ async function mount(
   // querying the source for them instead would only find the points inside
   // the tiles loaded for the current view, never the stay being left.
   const stateKeys = new Map<Stay, { source: string; id: number }[]>();
-  const addPoints = (
+  /** Adds a source of one feature per item, with ids in item order. */
+  const addFeatures = <T>(
     source: string,
-    points: (stay: Stay) => { point: GeoPoint; photo: string }[],
+    items: (stay: Stay) => (T & {
+      geometry: Outline | { type: "Point"; coordinates: [number, number] };
+      photo: string;
+    })[],
   ) => {
-    let id = 0;
-    const features = stays.flatMap((stay) =>
-      points(stay).map(({ point, photo }) => {
-        stateKeys.set(stay, [...(stateKeys.get(stay) ?? []), { source, id }]);
-        return {
-          type: "Feature" as const,
-          id: id++,
-          geometry: { type: "Point" as const, coordinates: lngLat(point) },
-          properties: { stay: stay.id, photo },
-        };
-      }),
+    const all = stays.flatMap((stay) =>
+      items(stay).map((item) => ({ stay, item })),
     );
+    all.forEach(({ stay }, id) => {
+      stateKeys.set(stay, [...(stateKeys.get(stay) ?? []), { source, id }]);
+    });
     map.addSource(source, {
       type: "geojson",
-      data: { type: "FeatureCollection", features },
+      data: {
+        type: "FeatureCollection",
+        features: all.map(({ stay, item: { geometry, photo } }, id) => ({
+          type: "Feature" as const,
+          id,
+          geometry,
+          properties: { stay: stay.id, photo },
+        })),
+      },
+    });
+    return all.map(({ item }) => item);
+  };
+  const point = (coordinates: GeoPoint) => ({
+    type: "Point" as const,
+    coordinates: lngLat(coordinates),
+  });
+  addFeatures("outlines", (stay) =>
+    stay.places.flatMap(({ outline, photo }) =>
+      outline ? [{ geometry: outline, photo }] : [],
+    ),
+  );
+  addFeatures("cameras", (stay) =>
+    stay.cameras.map(({ point: camera, photo }) => ({
+      geometry: point(camera),
+      photo,
+    })),
+  );
+  const places = addFeatures("places", (stay) =>
+    stay.places.map((place) => ({
+      geometry: point(place),
+      photo: place.photo,
+      bounds: place.bounds,
+    })),
+  );
+
+  // Whether each outlined place is drawn as its outline or as a marker
+  // depends on how large the outline is on screen, so it is decided after
+  // every move; a place without an outline is always a marker.
+  const size = ([west, south, east, north]: Bounds) => {
+    const sw = map.project([west, south]);
+    const ne = map.project([east, north]);
+    return Math.max(ne.x - sw.x, sw.y - ne.y);
+  };
+  const resize = () => {
+    places.forEach(({ bounds }, id) => {
+      if (!bounds) return;
+      // An outline the marker would cover is shown as the marker instead.
+      const marker = size(bounds) < 2 * MARKER_RADIUS.idle;
+      map.setFeatureState({ source: "places", id }, { marker });
     });
   };
-  addPoints("cameras", (stay) => stay.cameras);
-  addPoints("places", (stay) => stay.places);
+  map.on("moveend", resize);
+  resize();
+
   const active: ExpressionSpecification = [
     "boolean",
     ["feature-state", "active"],
     false,
+  ];
+  map.addLayer({
+    id: "outline-fills",
+    type: "fill",
+    source: "outlines",
+    paint: {
+      "fill-color": PLACE_COLOR,
+      "fill-opacity": ["case", active, 0.2, 0.1],
+    },
+  });
+  map.addLayer({
+    id: "outline-lines",
+    type: "line",
+    source: "outlines",
+    paint: {
+      "line-color": PLACE_COLOR,
+      "line-width": ["case", active, 2, 1],
+      "line-opacity": ["case", active, 1, 0.4],
+    },
+  });
+  const marker: ExpressionSpecification = [
+    "boolean",
+    ["feature-state", "marker"],
+    true,
   ];
   /** A kind of point on the map: a coloured dot on a rim. */
   interface PointKind {
@@ -159,6 +230,8 @@ async function mount(
     radius: { active: number; idle: number };
     /** How strongly the dot is coloured, 0 to 1, by state. */
     strength: ExpressionSpecification;
+    /** Whether the point is drawn at all. */
+    shown: ExpressionSpecification;
   }
   // The dots of the other stays stay on the map, faded, for context; the
   // current stay's are left a little pale. The cameras come last, so above
@@ -169,12 +242,14 @@ async function mount(
       color: PLACE_COLOR,
       radius: MARKER_RADIUS,
       strength: ["case", active, 0.75, 0.4],
+      shown: marker,
     },
     {
       source: "cameras",
       color: CAMERA_COLOR,
       radius: { active: 3, idle: 2 },
       strength: ["case", active, 0.75, 0.4],
+      shown: ["literal", true],
     },
   ];
   // A fainter dot is a paler one, not a translucent one: two pale dots
@@ -226,9 +301,12 @@ async function mount(
     disc(kind, `${kind.source}-rims`, {
       "circle-radius": radius(kind, RIM_WIDTH),
       "circle-color": rimColor(),
-      "circle-opacity": rimOpacity,
+      "circle-opacity": ["case", kind.shown, rimOpacity, 0],
     });
-    disc(kind, kind.source, { "circle-color": shade(kind) });
+    disc(kind, kind.source, {
+      "circle-color": shade(kind),
+      "circle-opacity": ["case", kind.shown, 1, 0],
+    });
   }
   const recolor = () => {
     for (const kind of kinds) {
@@ -238,7 +316,7 @@ async function mount(
   dark.addEventListener("change", recolor);
   // A point stands for a photo, or for the first photo showing a place,
   // so clicking it goes to that photo; the stay heading is the caption's.
-  for (const { source: layer } of kinds) {
+  for (const layer of ["outline-fills", ...kinds.map((kind) => kind.source)]) {
     map.on("click", layer, (event) => {
       const photo = event.features?.[0]?.properties.photo as string | undefined;
       if (photo === undefined) return;

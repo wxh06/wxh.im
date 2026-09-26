@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import type { Loader } from "astro/loaders";
 import ExifReader, { type ExpandedTags } from "exifreader";
 
-import type { GeoPoint } from "@/photos/geo";
+import type { Place } from "@/photos/geo";
 
 import { geocode, RateLimited } from "./geocode";
 
@@ -66,7 +66,7 @@ function extract(tags: ExpandedTags, fileName: string) {
 }
 
 type Extracted = ReturnType<typeof extract>;
-type PhotoData = Extracted & { place?: GeoPoint | undefined };
+type PhotoData = Extracted & { place?: Place | undefined };
 
 export function photos({ base }: PhotosLoaderOptions): Loader {
   return {
@@ -84,16 +84,16 @@ export function photos({ base }: PhotosLoaderOptions): Loader {
       };
 
       /**
-       * Position of the place a photo shows, its sublocation, which is
-       * distinct from where the camera was. Photos from one place share it,
-       * so an entry already in the store answers for any new photo from the
-       * same place without a lookup.
+       * The place a photo shows, its sublocation, which is distinct from
+       * where the camera was. Photos from one place share it, so an entry
+       * already in the store answers for any new photo from the same place
+       * without a lookup.
        */
       async function locate({
         location,
         city,
         countryCode,
-      }: Extracted): Promise<GeoPoint | undefined> {
+      }: Extracted): Promise<Place | undefined> {
         if (!location || !city || !countryCode) return undefined;
         for (const entry of store.values()) {
           const data = entry.data as PhotoData;
@@ -128,7 +128,7 @@ export function photos({ base }: PhotosLoaderOptions): Loader {
           expanded: true,
         });
         const extracted = extract(tags, path.basename(filePath));
-        let place: GeoPoint | undefined;
+        let place: Place | undefined;
         let located = true;
         try {
           place = await locate(extracted);
