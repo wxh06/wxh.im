@@ -1,8 +1,8 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { render, type CollectionEntry } from "astro:content";
 import { Icon } from "astro-icon/components";
+
 import ExternalLink from "./ExternalLink.astro";
-import { render } from "astro:content";
 
 interface Props {
   projects: CollectionEntry<"projects">[];

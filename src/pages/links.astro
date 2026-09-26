@@ -1,8 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Layout from "../layouts/Layout.astro";
 import { getCollection } from "astro:content";
+
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 
 const links = await getCollection("links");
 ---
@@ -29,6 +30,6 @@ const links = await getCollection("links");
         </div>
       ))}
     </div>
-    <script src="../components/masonry-layout.ts"></script>
+    <script src="@/components/masonry-layout.ts"></script>
   </Layout>
 </BaseLayout>

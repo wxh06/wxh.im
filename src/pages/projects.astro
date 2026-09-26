@@ -1,8 +1,9 @@
 ---
 import { getCollection } from "astro:content";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Layout from "../layouts/Layout.astro";
-import ProjectGroup from "../components/ProjectGroup.astro";
+
+import ProjectGroup from "@/components/ProjectGroup.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Layout from "@/layouts/Layout.astro";
 
 const projects = (await getCollection("projects")).sort(
   ({ data: a }, { data: b }) => {
@@ -28,6 +29,6 @@ const projects = (await getCollection("projects")).sort(
         />
       </section>
     </div>
-    <script src="../components/project-github-buttons.ts"></script>
+    <script src="@/components/project-github-buttons.ts"></script>
   </Layout>
 </BaseLayout>

@@ -25,6 +25,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@eslint/js": "^10.0.1",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.1",
     "@types/masonry-layout": "^4.2.8",
     "@types/node": "^24.13.4",
     "eslint": "^10.10.0",
