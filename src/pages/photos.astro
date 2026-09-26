@@ -10,13 +10,13 @@ import { getCollection } from "astro:content";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Layout from "@/layouts/Layout.astro";
-import { stayCenters } from "@/photos/geo";
+import { stayGeometries } from "@/photos/geo";
 import { groupTimeline } from "@/photos/timeline";
 
 const entries = groupTimeline(
   (await getCollection("photos")).map(({ id, data }) => ({ id, ...data })),
 );
-const centers = stayCenters(entries);
+const geometries = stayGeometries(entries);
 
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 // Entry days are date-only strings, which parse as UTC midnight; formatting
@@ -51,8 +51,7 @@ const caption = (
           <li
             class="mb-8"
             data-stay
-            data-lng={centers[index]?.longitude}
-            data-lat={centers[index]?.latitude}
+            data-geometry={JSON.stringify(geometries[index])}
           >
             <h2 class="mb-2 text-xl">
               <span data-stay-date>{formatDays(entry.start, entry.end)}</span> ·{" "}
@@ -69,7 +68,7 @@ const caption = (
             </h2>
             <ul class="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-stretch">
               {entry.photos.map(({ id, image, title, ...data }) => (
-                <li>
+                <li data-photo={id}>
                   <Image src={image} height={240} alt={title ?? id} />
                   <p class="text-sm text-gray-500">
                     {caption(entry, { id, title, location: data.location })}
@@ -104,7 +103,7 @@ const caption = (
         {/* The library sets `position: relative` on its container, so the
         sticky positioning has to live on a wrapper. */}
         <div
-          class="flex-1 sm:short:aspect-auto sm:short:flex-1 lg:aspect-4/3 lg:flex-none dark:invert dark:hue-rotate-180"
+          class="flex-1 sm:short:aspect-auto sm:short:flex-1 lg:aspect-video lg:flex-none dark:invert dark:hue-rotate-180"
           data-timeline-map
         ></div>
       </div>
