@@ -68,7 +68,7 @@ const caption = (
             </h2>
             <ul class="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-stretch">
               {entry.photos.map(({ id, image, title, ...data }) => (
-                <li data-photo={id}>
+                <li data-photo={id} data-place={data.location}>
                   <Image src={image} height={240} alt={title ?? id} />
                   <p class="text-sm text-gray-500">
                     {caption(entry, { id, title, location: data.location })}

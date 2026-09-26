@@ -1,6 +1,7 @@
 import type {
   CircleLayerSpecification,
   ExpressionSpecification,
+  FilterSpecification,
 } from "maplibre-gl";
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 
@@ -123,31 +124,52 @@ async function mount(
   // when the stay switches. The ids are assigned here and kept per stay:
   // querying the source for them instead would only find the points inside
   // the tiles loaded for the current view, never the stay being left.
-  const stateKeys = new Map<Stay, { source: string; id: number }[]>();
+  interface StateKey {
+    source: string;
+    id: number;
+  }
+  const stateKeys = new Map<Stay, StateKey[]>();
+  // What a photo on the page corresponds to: its own camera position, and
+  // the place it shows, which it shares with the other photos of that place.
+  const hoverKeys = new Map<string, StateKey[]>();
+  const photoKey = (photo: string) => `photo:${photo}`;
+  const placeKey = (stay: Stay, place: string) =>
+    `place:${String(stay.id)}/${place}`;
   /** Adds a source of one feature per item, with ids in item order. */
   const addFeatures = <T>(
     source: string,
     items: (stay: Stay) => (T & {
       geometry: Outline | { type: "Point"; coordinates: [number, number] };
       photo: string;
+      /** The place this feature belongs to; without it, only the photo. */
+      place?: string;
+      properties?: Record<string, unknown>;
     })[],
   ) => {
     const all = stays.flatMap((stay) =>
       items(stay).map((item) => ({ stay, item })),
     );
-    all.forEach(({ stay }, id) => {
-      stateKeys.set(stay, [...(stateKeys.get(stay) ?? []), { source, id }]);
+    all.forEach(({ stay, item }, id) => {
+      const key = { source, id };
+      stateKeys.set(stay, [...(stateKeys.get(stay) ?? []), key]);
+      const hover =
+        item.place === undefined
+          ? photoKey(item.photo)
+          : placeKey(stay, item.place);
+      hoverKeys.set(hover, [...(hoverKeys.get(hover) ?? []), key]);
     });
     map.addSource(source, {
       type: "geojson",
       data: {
         type: "FeatureCollection",
-        features: all.map(({ stay, item: { geometry, photo } }, id) => ({
-          type: "Feature" as const,
-          id,
-          geometry,
-          properties: { stay: stay.id, photo },
-        })),
+        features: all.map(
+          ({ stay, item: { geometry, photo, properties } }, id) => ({
+            type: "Feature" as const,
+            id,
+            geometry,
+            properties: { ...properties, stay: stay.id, photo },
+          }),
+        ),
       },
     });
     return all.map(({ item }) => item);
@@ -157,8 +179,10 @@ async function mount(
     coordinates: lngLat(coordinates),
   });
   addFeatures("outlines", (stay) =>
-    stay.places.flatMap(({ outline, photo }) =>
-      outline ? [{ geometry: outline, photo }] : [],
+    stay.places.flatMap(({ outline, photo, name }) =>
+      outline
+        ? [{ geometry: outline, photo, place: name, properties: { name } }]
+        : [],
     ),
   );
   addFeatures("cameras", (stay) =>
@@ -171,6 +195,8 @@ async function mount(
     stay.places.map((place) => ({
       geometry: point(place),
       photo: place.photo,
+      place: place.name,
+      properties: { name: place.name },
       bounds: place.bounds,
     })),
   );
@@ -199,13 +225,19 @@ async function mount(
     ["feature-state", "active"],
     false,
   ];
+  const hover: ExpressionSpecification = [
+    "boolean",
+    ["feature-state", "hover"],
+    false,
+  ];
+  const lit: ExpressionSpecification = ["any", active, hover];
   map.addLayer({
     id: "outline-fills",
     type: "fill",
     source: "outlines",
     paint: {
       "fill-color": PLACE_COLOR,
-      "fill-opacity": ["case", active, 0.2, 0.1],
+      "fill-opacity": ["case", hover, 0.3, ["case", active, 0.2, 0.1]],
     },
   });
   map.addLayer({
@@ -214,8 +246,8 @@ async function mount(
     source: "outlines",
     paint: {
       "line-color": PLACE_COLOR,
-      "line-width": ["case", active, 2, 1],
-      "line-opacity": ["case", active, 1, 0.4],
+      "line-width": ["case", hover, 3, ["case", active, 2, 1]],
+      "line-opacity": ["case", lit, 1, 0.4],
     },
   });
   const marker: ExpressionSpecification = [
@@ -234,21 +266,22 @@ async function mount(
     shown: ExpressionSpecification;
   }
   // The dots of the other stays stay on the map, faded, for context; the
-  // current stay's are left a little pale. The cameras come last, so above
-  // the places: a camera standing at a place is the smaller dot on it.
+  // current stay's are left a little pale, so that a hovered one, drawn in
+  // full colour, stands out. The cameras come last, so above the places: a
+  // camera standing at a place is the smaller dot on it.
   const kinds: PointKind[] = [
     {
       source: "places",
       color: PLACE_COLOR,
       radius: MARKER_RADIUS,
-      strength: ["case", active, 0.75, 0.4],
+      strength: ["case", hover, 1, ["case", active, 0.75, 0.4]],
       shown: marker,
     },
     {
       source: "cameras",
       color: CAMERA_COLOR,
       radius: { active: 3, idle: 2 },
-      strength: ["case", active, 0.75, 0.4],
+      strength: ["case", hover, 1, ["case", active, 0.75, 0.4]],
       shown: ["literal", true],
     },
   ];
@@ -296,27 +329,79 @@ async function mount(
   // white on the basemap and has nothing to pale towards, and it fades
   // only with the stay, not with the dot's paling: translucent, it would
   // show the dot it parts from.
-  const rimOpacity: ExpressionSpecification = ["case", active, 1, 0.4];
-  for (const kind of kinds) {
-    disc(kind, `${kind.source}-rims`, {
-      "circle-radius": radius(kind, RIM_WIDTH),
-      "circle-color": rimColor(),
-      "circle-opacity": ["case", kind.shown, rimOpacity, 0],
-    });
-    disc(kind, kind.source, {
-      "circle-color": shade(kind),
-      "circle-opacity": ["case", kind.shown, 1, 0],
-    });
-  }
-  const recolor = () => {
+  const rimOpacity: ExpressionSpecification = ["case", lit, 1, 0.4];
+  type Shown = (kind: PointKind) => ExpressionSpecification;
+  const drawn: string[] = [];
+  /** Draws every kind, rims under dots, in layers named with the suffix. */
+  const draw = (suffix: string, shown: Shown) => {
+    drawn.push(suffix);
     for (const kind of kinds) {
-      map.setPaintProperty(`${kind.source}-rims`, "circle-color", rimColor());
+      disc(kind, `${kind.source}${suffix}-rims`, {
+        "circle-radius": radius(kind, RIM_WIDTH),
+        "circle-color": rimColor(),
+        "circle-opacity": ["case", shown(kind), rimOpacity, 0],
+      });
+      disc(kind, `${kind.source}${suffix}`, {
+        "circle-color": shade(kind),
+        "circle-opacity": ["case", shown(kind), 1, 0],
+      });
+    }
+  };
+  // A hovered point moves to layers above every other point, leaving its
+  // place in the base layers empty: the draw order within a layer is
+  // fixed, so in place it would stay under whichever neighbour happens to
+  // be drawn later.
+  draw("", (kind) => ["all", ["!", hover], kind.shown]);
+  draw("-hovered", (kind) => ["all", hover, kind.shown]);
+  const recolor = () => {
+    for (const suffix of drawn) {
+      for (const kind of kinds) {
+        map.setPaintProperty(
+          `${kind.source}${suffix}-rims`,
+          "circle-color",
+          rimColor(),
+        );
+      }
     }
   };
   dark.addEventListener("change", recolor);
+  // A place is named only while hovered: a label for every place would
+  // need room the map does not have, and the photos name the places anyway.
+  // The label is filtered in rather than faded in so that it exists only
+  // while shown: symbol placement runs from the top layer down and ignores
+  // opacity, so an ever-present label would either claim its room while
+  // invisible or, told to ignore placement, be drawn across the basemap's
+  // own labels when it did show.
+  const labelled = (ids: number[]): FilterSpecification => [
+    "in",
+    ["id"],
+    ["literal", ids],
+  ];
+  map.addLayer({
+    id: "place-labels",
+    type: "symbol",
+    source: "places",
+    filter: labelled([]),
+    layout: {
+      "text-field": ["get", "name"],
+      "text-font": ["Noto Sans Regular"],
+      "text-size": 12,
+      "text-anchor": "bottom",
+      "text-offset": [0, -0.8],
+      // Never dropped itself: whatever it collides with yields to it.
+      "text-allow-overlap": true,
+    },
+    paint: {
+      "text-color": "#111827",
+      "text-halo-color": "#ffffff",
+      "text-halo-width": 1,
+    },
+  });
+
   // A point stands for a photo, or for the first photo showing a place,
   // so clicking it goes to that photo; the stay heading is the caption's.
-  for (const layer of ["outline-fills", ...kinds.map((kind) => kind.source)]) {
+  const pointLayers = ["outline-fills", ...kinds.map((kind) => kind.source)];
+  for (const layer of pointLayers) {
     map.on("click", layer, (event) => {
       const photo = event.features?.[0]?.properties.photo as string | undefined;
       if (photo === undefined) return;
@@ -336,6 +421,78 @@ async function mount(
       map.setFeatureState(key, { active });
     }
   };
+
+  // Hovering a photo lights up its points on the map, and hovering a point
+  // lights up its photos on the page: the one taken there, or every one
+  // showing the place. Either way the same photos and the same points are
+  // lit, so a point on the map is resolved to its photos first.
+  const stayOf = (element: Element) =>
+    stays.find((stay) => stay.item === element.closest("[data-stay]"));
+  const keysOf = (item: HTMLElement) => {
+    const { photo, place } = item.dataset;
+    const stay = stayOf(item);
+    return [
+      ...(photo === undefined ? [] : (hoverKeys.get(photoKey(photo)) ?? [])),
+      ...(place === undefined || !stay
+        ? []
+        : (hoverKeys.get(placeKey(stay, place)) ?? [])),
+    ];
+  };
+  // The blue of the camera dots, so that the frame reads as the same mark.
+  const HIGHLIGHT = ["outline-2", "outline-offset-2", "outline-blue-500"];
+  let hovered: StateKey[] = [];
+  let highlighted: Element[] = [];
+  const hoverPhotos = (items: HTMLElement[]) => {
+    for (const key of hovered) map.setFeatureState(key, { hover: false });
+    hovered = items.flatMap(keysOf);
+    for (const key of hovered) map.setFeatureState(key, { hover: true });
+    map.setFilter(
+      "place-labels",
+      labelled(
+        hovered.filter((key) => key.source === "places").map((key) => key.id),
+      ),
+    );
+    for (const image of highlighted) image.classList.remove(...HIGHLIGHT);
+    highlighted = items.flatMap((item) => item.querySelector("img") ?? []);
+    for (const image of highlighted) image.classList.add(...HIGHLIGHT);
+  };
+
+  const onPhotoOver = (event: Event) => {
+    const item = (event.target as Element).closest<HTMLElement>("[data-photo]");
+    if (item) hoverPhotos([item]);
+  };
+  const onPhotoOut = (event: Event) => {
+    if ((event.target as Element).closest("[data-photo]")) hoverPhotos([]);
+  };
+  document.addEventListener("mouseover", onPhotoOver);
+  document.addEventListener("mouseout", onPhotoOut);
+
+  for (const layer of pointLayers) {
+    map.on("mousemove", layer, (event) => {
+      const feature = event.features?.[0];
+      if (!feature) return;
+      const {
+        photo,
+        name,
+        stay: stayId,
+      } = feature.properties as {
+        photo: string;
+        name?: string;
+        stay: number;
+      };
+      const stay = stays.find(({ id }) => id === stayId);
+      const selector =
+        name === undefined || !stay
+          ? `[data-photo="${CSS.escape(photo)}"]`
+          : `[data-place="${CSS.escape(name)}"]`;
+      hoverPhotos([
+        ...(stay?.item ?? document).querySelectorAll<HTMLElement>(selector),
+      ]);
+    });
+    map.on("mouseleave", layer, () => {
+      hoverPhotos([]);
+    });
+  }
 
   let current: Stay | undefined;
   caption?.addEventListener("click", () => {
@@ -387,6 +544,8 @@ async function mount(
     () => {
       removeEventListener("scroll", onScroll);
       removeEventListener("resize", onScroll);
+      document.removeEventListener("mouseover", onPhotoOver);
+      document.removeEventListener("mouseout", onPhotoOut);
       if (frame !== undefined) cancelAnimationFrame(frame);
       dark.removeEventListener("change", recolor);
       map.remove();
