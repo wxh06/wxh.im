@@ -82,6 +82,14 @@ const caption = (
                 <li data-photo={id} data-place={data.location}>
                   <div class="relative">
                     <Image src={image} height={240} alt={title ?? id} />
+                    {data.mergedHdr && (
+                      <span
+                        class="absolute top-2 right-2 rounded bg-black/40 px-1 py-0.5 text-xs font-medium text-white backdrop-blur-sm"
+                        title="Merged from bracketed exposures"
+                      >
+                        HDR
+                      </span>
+                    )}
                     {/* The box overhangs a portrait to the left, which in the
                     first column is off the page on a viewport no wider than
                     the container. */}

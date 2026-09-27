@@ -55,6 +55,8 @@ function extract(tags: ExpandedTags, fileName: string) {
       model: tags.exif?.Model?.description,
     },
     lens: tags.exif?.LensModel?.description,
+    // Set by Lightroom on the result of merging bracketed exposures.
+    mergedHdr: xmp("IsMergedHDR") === "True",
     exposure: {
       exposureTime: tags.exif?.ExposureTime?.description,
       fNumber: rational(tags.exif?.FNumber),

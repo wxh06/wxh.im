@@ -66,6 +66,8 @@ const photos = defineCollection({
       place: place.optional(),
       camera: z.object({ make: z.string().optional(), model: z.string() }),
       lens: z.string().optional(),
+      /** Merged from bracketed exposures. */
+      mergedHdr: z.boolean(),
       exposure: z.object({
         exposureTime: z.string().optional(),
         fNumber: z.number().optional(),
