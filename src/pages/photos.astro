@@ -7,6 +7,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import { Icon } from "astro-icon/components";
 
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Layout from "@/layouts/Layout.astro";
@@ -45,6 +46,16 @@ const caption = (
 
 <BaseLayout title="Photography">
   <Layout>
+    {/* Whether focal lengths read as 35 mm equivalents: one choice for the
+    page, kept by this box, which every focal length is a label for. Shown
+    only while focused from the keyboard, so that the tab stop is not an
+    invisible one, and fixed even while hidden, where sr-only would put it at
+    the top of the page, so that taking focus from a label does not scroll
+    the page to it. */}
+    <label class="fixed bottom-4 left-4 z-10 flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm shadow-lg ring-1 ring-gray-200 not-has-focus-visible:sr-only not-has-focus-visible:fixed dark:bg-zinc-900 dark:ring-gray-700">
+      <input id="focal-equivalent" type="checkbox" />
+      Show 35 mm equivalent focal lengths
+    </label>
     <div class="sm:short:flex sm:short:gap-4">
       <ol class="py-4 sm:short:min-w-0 sm:short:flex-1">
         {entries.map((entry, index) => (
@@ -69,14 +80,72 @@ const caption = (
             <ul class="flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:items-stretch">
               {entry.photos.map(({ id, image, title, ...data }) => (
                 <li data-photo={id} data-place={data.location}>
-                  <Image src={image} height={240} alt={title ?? id} />
+                  <div class="relative">
+                    <Image src={image} height={240} alt={title ?? id} />
+                    {/* The box overhangs a portrait to the left, which in the
+                    first column is off the page on a viewport no wider than
+                    the container. */}
+                    <div class="group absolute right-0.5 bottom-0.5 rounded-xl text-xs text-white backdrop-blur-sm hover:bg-black/60 focus-within:bg-black/60">
+                      <div class="hidden p-2 whitespace-nowrap group-hover:block group-focus-within:block">
+                        <ul>
+                          <li class="flex items-center gap-1">
+                            <Icon
+                              name="lucide:camera"
+                              class="size-3 shrink-0"
+                              role="img"
+                              title="Camera"
+                            />
+                            {join([data.camera.make, data.camera.model], " ")}
+                          </li>
+                          {/* Takes no width of its own, so that the lens name
+                          is cut to the other lines instead of widening the box. */}
+                          {data.lens && (
+                            <li class="flex w-0 min-w-full items-center gap-1">
+                              <Icon
+                                name="lucide:aperture"
+                                class="size-3 shrink-0"
+                                role="img"
+                                title="Lens"
+                              />
+                              <span class="truncate" title={data.lens}>
+                                {data.lens}
+                              </span>
+                            </li>
+                          )}
+                        </ul>
+                        <hr class="-mx-2 my-1 border-white/15" />
+                        {/* The label is focusable so that pressing it keeps
+                        focus inside the box: pressing a non-focusable one blurs
+                        the button, which closes the box before the click lands. */}
+                        <p class="pr-5">
+                          ISO {data.exposure.iso} ·{" "}
+                          <label
+                            class="cursor-pointer underline decoration-dotted underline-offset-2"
+                            for="focal-equivalent"
+                            tabindex="-1"
+                          >
+                            <span class="[:root:has(#focal-equivalent:checked)_&]:hidden">
+                              {data.exposure.focalLength} mm
+                            </span>
+                            <span class="hidden [:root:has(#focal-equivalent:checked)_&]:inline">
+                              {data.exposure.focalLength35mm} mm equiv.
+                            </span>
+                          </label>{" "}
+                          · <i>f</i>/{data.exposure.fNumber} ·{" "}
+                          {data.exposure.exposureTime}
+                        </p>
+                      </div>
+                      <button
+                        class="absolute right-1 bottom-1 flex size-6 items-center justify-center"
+                        type="button"
+                        aria-label="Details"
+                      >
+                        <Icon name="fa6-solid:circle-info" class="size-4" />
+                      </button>
+                    </div>
+                  </div>
                   <p class="text-sm text-gray-500">
                     {caption(entry, { id, title, location: data.location })}
-                  </p>
-                  <p class="text-sm text-gray-500">
-                    ISO {data.exposure.iso} · {data.exposure.focalLength} mm (
-                    {data.exposure.focalLength35mm} mm equiv.) · <i>f</i>/
-                    {data.exposure.fNumber} · {data.exposure.exposureTime}
                   </p>
                 </li>
               ))}
