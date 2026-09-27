@@ -4,13 +4,13 @@ import links from "@/navigation.json";
 ---
 
 <div class="container mx-auto divide-y divide-gray-200 px-4 dark:divide-gray-700">
-  <nav class="flex-wrap justify-between text-center sm:flex sm:py-4">
+  <nav class="flex-wrap justify-between text-center sm:flex sm:py-1">
     <div class="my-3 text-3xl sm:my-auto">
       <a href="/" rel="prefetch">
         wxh06
       </a>
     </div>
-    <div class="my-4 space-x-3 text-lg sm:my-2">
+    <div class="mt-4 flex text-lg sm:my-2 sm:gap-x-3">
       {links.map(({ href, text }) => (
         <NavLink href={href}>{text}</NavLink>
       ))}
