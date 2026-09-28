@@ -92,9 +92,20 @@ const caption = (
                     )}
                     {/* The box overhangs a portrait to the left, which in the
                     first column is off the page on a viewport no wider than
-                    the container. */}
-                    <div class="group absolute right-0.5 bottom-0.5 rounded-xl text-xs text-white backdrop-blur-sm hover:bg-black/60 focus-within:bg-black/60">
-                      <div class="hidden p-2 whitespace-nowrap group-hover:block group-focus-within:block">
+                    the container. Hovering shows the box and the details holds
+                    it open; the box is the details' sibling rather than its
+                    content, which a closed details would hide from hovering
+                    too. */}
+                    <div class="group absolute right-0.5 bottom-0.5 rounded-xl text-xs text-white backdrop-blur-sm hover:bg-black/60 has-open:bg-black/60">
+                      <details>
+                        <summary
+                          class="absolute right-1 bottom-1 flex size-6 cursor-pointer list-none items-center justify-center [&::-webkit-details-marker]:hidden"
+                          aria-label="Details"
+                        >
+                          <Icon name="fa6-solid:circle-info" class="size-4" />
+                        </summary>
+                      </details>
+                      <div class="hidden p-2 whitespace-nowrap group-hover:block group-has-open:block">
                         <ul>
                           <li class="flex items-center gap-1">
                             <Icon
@@ -122,15 +133,11 @@ const caption = (
                           )}
                         </ul>
                         <hr class="-mx-2 my-1 border-white/15" />
-                        {/* The label is focusable so that pressing it keeps
-                        focus inside the box: pressing a non-focusable one blurs
-                        the button, which closes the box before the click lands. */}
                         <p class="pr-5">
                           ISO {data.exposure.iso} ·{" "}
                           <label
                             class="cursor-pointer underline decoration-dotted underline-offset-2"
                             for="focal-equivalent"
-                            tabindex="-1"
                           >
                             <span class="[:root:has(#focal-equivalent:checked)_&]:hidden">
                               {data.exposure.focalLength} mm
@@ -143,13 +150,6 @@ const caption = (
                           {data.exposure.exposureTime}
                         </p>
                       </div>
-                      <button
-                        class="absolute right-1 bottom-1 flex size-6 items-center justify-center"
-                        type="button"
-                        aria-label="Details"
-                      >
-                        <Icon name="fa6-solid:circle-info" class="size-4" />
-                      </button>
                     </div>
                   </div>
                   <p class="text-sm text-gray-500">
