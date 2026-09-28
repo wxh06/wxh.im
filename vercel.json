@@ -1,3 +1,5 @@
 {
-  "trailingSlash": false
+  "trailingSlash": false,
+  "installCommand": "dnf install -qy rclone && pnpm install",
+  "buildCommand": "rclone copy r2:photos photos && astro build"
 }

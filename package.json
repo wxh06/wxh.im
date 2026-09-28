@@ -14,12 +14,16 @@
   "dependencies": {
     "@astrojs/mdx": "^8.0.1",
     "@iconify-json/fa6-solid": "^1.2.4",
+    "@iconify-json/lucide": "^1.2.136",
     "@iconify-json/simple-icons": "~1.2.96",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.2",
     "astro-icon": "^1.2.0",
+    "exifreader": "^4.45.2",
     "github-buttons": "^2.33.0",
+    "maplibre-gl": "^6.11.2",
     "masonry-layout": "^4.2.2",
+    "p-limit": "^7.3.2",
     "sharp": "^0.35.4",
     "tailwindcss": "^4.3.3"
   },

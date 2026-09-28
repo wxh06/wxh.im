@@ -1,3 +1,4 @@
 allowBuilds:
   esbuild: true
+  exifreader: false
   sharp: true
